@@ -1,0 +1,204 @@
+/* apply a natural box layout model to all elements, but allowing components to change */
+html {
+  box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+body {
+  margin: 0;
+}
+header {
+  text-align: center;
+}
+header img {
+  width: 90%;
+  height: auto;
+  max-width: 400px;
+}
+body.overlay:after {
+  content: "";
+  display: block;
+  position: fixed;
+  /* could also be absolute */
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+.modal {
+  /* some styles to position the modal at the center of the page */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 300px;
+  height: 400px;
+  margin-left: -150px;
+  margin-top: -200px;
+  /* needed styles for the overlay */
+  z-index: 10;
+  /* keep on top of other elements on the page */
+  box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
+  background: rgba(255, 255, 255, 0.8);
+}
+.modal h3 {
+  margin: 0px;
+  padding: 5px;
+  background: #3b9bd9;
+}
+.modal p {
+  margin: 5px;
+  padding: 5px;
+  background: #e19e2a;
+}
+.modal ul {
+  margin: 0;
+  padding: 5px;
+}
+.modal ul > li {
+  margin: 5px;
+  padding: 5px;
+  background: #e19e2a;
+  list-style-type: none;
+}
+.game-field.color-0 {
+  background-image: url(img/wappen.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+/** colors generator */
+.game-field.color-0 {
+  background-color: rgba(0, 0, 0, 0);
+}
+.color-0 .color-0 {
+  background-size: 36px 36px;
+  background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 25%, rgba(0, 0, 0, 0.1) 25%, rgba(0, 0, 0, 0.1) 50%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.1) 75%, rgba(0, 0, 0, 0.1) 75%, rgba(0, 0, 0, 0.1));
+}
+.game-field.color-1 {
+  background-color: #eb7361;
+}
+.color-1 .color-1 {
+  background-size: 36px 36px;
+  background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 25%, rgba(0, 0, 0, 0.1) 25%, rgba(0, 0, 0, 0.1) 50%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.1) 75%, rgba(0, 0, 0, 0.1) 75%, rgba(0, 0, 0, 0.1));
+}
+.game-field.color-2 {
+  background-color: #3b9bd9;
+}
+.color-2 .color-2 {
+  background-size: 36px 36px;
+  background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 25%, rgba(0, 0, 0, 0.1) 25%, rgba(0, 0, 0, 0.1) 50%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.1) 75%, rgba(0, 0, 0, 0.1) 75%, rgba(0, 0, 0, 0.1));
+}
+.game-field.color-3 {
+  background-color: #e19e2a;
+}
+.color-3 .color-3 {
+  background-size: 36px 36px;
+  background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 25%, rgba(0, 0, 0, 0.1) 25%, rgba(0, 0, 0, 0.1) 50%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.1) 75%, rgba(0, 0, 0, 0.1) 75%, rgba(0, 0, 0, 0.1));
+}
+.game-field.color-4 {
+  background-color: #5cb130;
+}
+.color-4 .color-4 {
+  background-size: 36px 36px;
+  background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 25%, rgba(0, 0, 0, 0.1) 25%, rgba(0, 0, 0, 0.1) 50%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.1) 75%, rgba(0, 0, 0, 0.1) 75%, rgba(0, 0, 0, 0.1));
+}
+.game-field.color-5 {
+  background-color: #364559;
+}
+.color-5 .color-5 {
+  background-size: 36px 36px;
+  background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 25%, rgba(0, 0, 0, 0.1) 25%, rgba(0, 0, 0, 0.1) 50%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.1) 75%, rgba(0, 0, 0, 0.1) 75%, rgba(0, 0, 0, 0.1));
+}
+.game-field.color-6 {
+  background-color: #afa8a2;
+}
+.color-6 .color-6 {
+  background-size: 36px 36px;
+  background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 25%, rgba(0, 0, 0, 0.1) 25%, rgba(0, 0, 0, 0.1) 50%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.1) 75%, rgba(0, 0, 0, 0.1) 75%, rgba(0, 0, 0, 0.1));
+}
+/** colors generator ENDE */
+/** game-field generator */
+.game-area-2 .game-field {
+  width: 50%;
+  height: 50%;
+}
+.game-area-3 .game-field {
+  width: 33.33333333%;
+  height: 33.33333333%;
+}
+.game-area-4 .game-field {
+  width: 25%;
+  height: 25%;
+}
+.game-area-5 .game-field {
+  width: 20%;
+  height: 20%;
+}
+.game-area-6 .game-field {
+  width: 16.66666667%;
+  height: 16.66666667%;
+}
+.game-area-7 .game-field {
+  width: 14.28571429%;
+  height: 14.28571429%;
+}
+.game-area-8 .game-field {
+  width: 12.5%;
+  height: 12.5%;
+}
+/** game-field generator ENDE */
+.game-area-container {
+  width: 400px;
+  height: 400px;
+  padding: 10px;
+  margin: auto;
+}
+.game-area {
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+}
+.game-field {
+  transition: border-radius 200ms;
+  display: inline-block;
+  border: 5px solid #ffffff;
+  border-radius: 10%;
+  text-decoration: none;
+}
+.game-field::before {
+  padding: -5px;
+  transition: border-radius 200ms;
+  border-radius: 10%;
+}
+.game-field:hover {
+  transition: border-radius 200ms;
+  border-radius: 15%;
+}
+.game-field:hover::before {
+  border-radius: 15%;
+}
+.game-field::before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+.attacked::before {
+  content: '';
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.2) 47.5%, rgba(0, 0, 0, 0.4) 47.5%, rgba(0, 0, 0, 0.4) 52.5%, rgba(0, 0, 0, 0.2) 52.5%);
+}
+.active.active {
+  background-size: 36px 36px;
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.2) 25%, rgba(0, 0, 0, 0.2) 25%, rgba(0, 0, 0, 0.2) 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, rgba(0, 0, 0, 0.2) 75%, rgba(0, 0, 0, 0.2));
+  border-radius: 20%;
+}
+.active.active::before {
+  border-radius: 20%;
+}

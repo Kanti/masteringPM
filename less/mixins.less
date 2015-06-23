@@ -1,0 +1,39 @@
+@color-array:
+color-0 @color-0,
+color-1 @color-1,
+color-2 @color-2,
+color-3 @color-3,
+color-4 @color-4,
+color-5 @color-5,
+color-6 @color-6;
+
+
+.createColorClasses(@iterator:1) when (@iterator <= length(@color-array)) {
+    @name: extract(extract(@color-array, @iterator), 1);
+    .game-field.@{name} {
+        background-color: extract(extract(@color-array, @iterator), 2);
+    }
+    .@{name} .@{name} {
+        @tmp-color1: rgba(255, 255, 255, 0.1);
+        @tmp-color2: rgba(0, 0, 0, 0.1);
+        background-size: @background-size-line-active @background-size-line-active;
+        background-image: linear-gradient(
+                135deg,
+                @tmp-color1 25%, @tmp-color2 25%,
+                @tmp-color2 50%, @tmp-color1 50%,
+                @tmp-color1 75%, @tmp-color2 75%,
+                @tmp-color2
+        );
+    }
+    .createColorClasses((@iterator + 1));
+}
+
+.generate-columns(@n, @i: 2) when (@i =< @n) {
+    .game-area-@{i} {
+        .game-field {
+            width: 100% / @i;
+            height: 100% / @i;
+        }
+    }
+    .generate-columns(@n, (@i + 1));
+}

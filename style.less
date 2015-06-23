@@ -1,0 +1,122 @@
+/* apply a natural box layout model to all elements, but allowing components to change */
+html {
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+body {
+    margin: 0;
+}
+
+@color-0: rgba(0, 0, 0, 0);
+//logo
+@color-1: rgb(235, 115, 97);
+@color-2: rgb(59, 155, 217);
+@color-3: rgb(225, 158, 42);
+@color-4: rgb(92, 177, 48);
+@color-5: rgb(54, 69, 89);
+@color-6: rgb(175, 168, 162);
+
+@background-color-game-area: rgb(204, 204, 204);
+@background-color-game-area: #fff;
+@border-radius-non-active: 10%;
+@border-radius-hover: 15%;
+@border-radius-active: 20%;
+
+@background-size-line-active: 36px;
+
+@import "less/mixins";
+@import "less/header";
+@import "less/overlay";
+
+.game-field.color-0 {
+    background-image: url(img/wappen.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/** colors generator */
+.createColorClasses();
+/** colors generator ENDE */
+
+/** game-field generator */
+.generate-columns(8);
+/** game-field generator ENDE */
+
+.game-area-container {
+    width: 400px;
+    height: 400px;
+    padding: 10px;
+    margin: auto;
+}
+
+.game-area {
+    width: 100%;
+    height: 100%;
+    background: @background-color-game-area;
+}
+
+.game-field {
+    transition: border-radius 200ms;
+    display: inline-block;
+
+    border: 5px solid @background-color-game-area;
+    border-radius: @border-radius-non-active;
+    &::before{
+        padding: -5px;
+        transition: border-radius 200ms;
+        border-radius: @border-radius-non-active;
+    }
+
+    text-decoration: none;
+
+    &:hover {
+        transition: border-radius 200ms;
+        border-radius: @border-radius-hover;
+        &::before{
+            border-radius: @border-radius-hover;
+        }
+    }
+    &::before {
+        content: '';
+        display: inline-block;
+        height: 100%;
+        vertical-align: middle;
+    }
+}
+
+.attacked::before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    @tmp-color1: rgba(255, 255, 255, 0.2);
+    @tmp-color2: rgba(0, 0, 0, 0.4);
+    @tmp-color3: rgba(0, 0, 0, 0.2);
+    @r: 5%;
+    background-image: linear-gradient(
+            45deg,
+            @tmp-color1 50% - @r/2, @tmp-color2 50% - @r/2,
+            @tmp-color2 50% + @r/2, @tmp-color3 50% + @r/2
+    );
+}
+
+.active.active {
+    @tmp-color1: rgba(255, 255, 255, 0.2);
+    @tmp-color2: rgba(0, 0, 0, 0.2);
+    background-size: @background-size-line-active @background-size-line-active;
+    background-image: linear-gradient(
+            45deg,
+            @tmp-color1 25%, @tmp-color2 25%,
+            @tmp-color2 50%, @tmp-color1 50%,
+            @tmp-color1 75%, @tmp-color2 75%,
+            @tmp-color2
+    );
+    border-radius: @border-radius-active;
+    &::before{
+        border-radius: @border-radius-active;
+    }
+}

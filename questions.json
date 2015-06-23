@@ -1,0 +1,62 @@
+[
+    {
+        "Kategorie":"Multiple Choice",
+        "Frage":"Was gehört nicht zur Definition eines Projektes?",
+        "Antwort A":"projektspezifische Organisation",
+        "Antwort B":"Zielvorgabe",
+        "Antwort C":"teuer",
+        "Antwort D":"zeitliche Begrenzung",
+        "Schwierigkeit":"",
+        "Quelle":"Skript, Seite 5",
+        "Überprüft":"Ja",
+        "Ersteller":"alle"
+    },
+    {
+        "Kategorie":"Ja/Nein",
+        "Frage":"Gehört die Führungstechnik des Projektmanagers zum Projektmanagement?",
+        "Antwort A":"Ja",
+        "Antwort B":"Nein",
+        "Antwort C":"",
+        "Antwort D":"",
+        "Schwierigkeit":"",
+        "Quelle":"Skript, Seite 6",
+        "Überprüft":"Ja",
+        "Ersteller":"alle"
+    },
+    {
+        "Kategorie":"Sortieren",
+        "Frage":"Sortieren Sie.",
+        "Antwort A":"Kostenplan (4)",
+        "Antwort B":"Personalzuordnung (1)",
+        "Antwort C":"Terminplanung (3)",
+        "Antwort D":"Methoden und Hilfsmittel (2)",
+        "Schwierigkeit":"",
+        "Quelle":"Skript, Seite 12",
+        "Überprüft":"Ja",
+        "Ersteller":"alle"
+    },
+    {
+        "Kategorie":"Multiple Choice",
+        "Frage":"Welche Aufgabe gehört zum Projektmanagement?",
+        "Antwort A":"Optimierung der Ressourcen",
+        "Antwort B":"Catering",
+        "Antwort C":"Programmieren",
+        "Antwort D":"Networking",
+        "Schwierigkeit":"",
+        "Quelle":"Skript, Seite 7",
+        "Überprüft":"Ja",
+        "Ersteller":"alle"
+    },
+    {
+        "Kategorie":"Multiple Choice",
+        "Frage":"Ein Wissensfeld des Projektmanagements ist Termin-",
+        "Antwort A":"Vermeidung",
+        "Antwort B":"Management",
+        "Antwort C":"Verschiebung",
+        "Antwort D":"Einsamkeit",
+        "Schwierigkeit":"",
+        "Quelle":"Skript, Seite 8",
+        "Überprüft":"Ja",
+        "Ersteller":"alle"
+    }
+]
