@@ -1,1 +1,2 @@
- - http://www.convertcsv.com/csv-to-json.htm
+  - Save Fragen.xlsx in .csv convertieren und dann mit
+  - http://www.convertcsv.com/csv-to-json.htm in json!
