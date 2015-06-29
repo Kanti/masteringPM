@@ -35,7 +35,7 @@ Game.static.isWinner = {
             return false;
         }
         $testElement = Game.static.getElementByIndex($element, index - size + 1);//rechts oben
-        return !$testElement || Game.static.getColor($testElement) != color;
+        return !(!$testElement || Game.static.getColor($testElement) != color);
     },
     test: function ($element, color) {
         var size = Game.static.getGameSize($element);
