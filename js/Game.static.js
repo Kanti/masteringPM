@@ -103,6 +103,7 @@ Game.static = {
         '}');
     },
     setGameAreaContainerSize: function () {
+        console.log("resize setGameAreaContainerSize");
         var win = $(window);
         var height = win.height();
         var width = win.width();

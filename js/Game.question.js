@@ -1,23 +1,102 @@
 var Game = Game || {};
+
 Game.question = {
+    conquer: function ($attackedElement) {
+        var attackedColor = Game.static.getColor($attackedElement);
+        var $active = Game.static.getActiveElement($attackedElement);
+        var activeColor = Game.static.getColor($active);
+        $attackedElement.removeClass(attackedColor).addClass(activeColor);
+        if (Game.static.isWinner.test($attackedElement, activeColor)) {
+            alert("you are the Winner " + Game.config.colors[activeColor]);
+        }
+    },
     ask: function ($attackedElement) {
         var attackedColor = Game.static.getColor($attackedElement);
         var $active = Game.static.getActiveElement($attackedElement);
         var activeColor = Game.static.getColor($active);
 
         var deferredObject = $.Deferred();
-        var conquer = confirm("player " + Game.config.colors[attackedColor] + " you are under Attack by player " + Game.config.colors[activeColor]);
-        if (conquer) {
-            $attackedElement.removeClass(attackedColor);
-            $attackedElement.addClass(activeColor);
 
-            if (Game.static.isWinner.test($attackedElement, activeColor)) {
-                alert("you are the Winner " + Game.config.colors[activeColor]);
-            }
-        }
-        deferredObject.resolve({conquer: conquer});
+        Game.question.createQuestionCardForPlayer($attackedElement, activeColor, attackedColor, deferredObject);
+        /*
+         var conquer = confirm("player " + Game.config.colors[attackedColor] + " you are under Attack by player " + Game.config.colors[activeColor]);
+         if (conquer) {
+         $attackedElement.removeClass(attackedColor).addClass(activeColor);
+
+         if (Game.static.isWinner.test($attackedElement, activeColor)) {
+         alert("you are the Winner " + Game.config.colors[activeColor]);
+         }
+         }
+         deferredObject.resolve({conquer: conquer});*/
         /*deferredObject.notify(1);
-        deferredObject.reject(randomValue, "errorCode");*/
+         deferredObject.reject(randomValue, "errorCode");*/
         return deferredObject;
+    },
+    createQuestionCardForPlayer: function ($attackedElement, activeColor, attackedColor, deferredObject) {
+        console.log("createQuestionCardForPlayer", $attackedElement, activeColor, attackedColor, deferredObject);
+        var vm = this;
+        vm.question = Game.question.getRandomQuestionObject();
+        vm.$modal = $('#modal');
+        vm.$body = $('#body');
+        vm.$p = vm.$modal.find('p');
+        vm.$h3 = vm.$modal.find('h3');
+        vm.$answers = vm.$modal.find('a');
+        vm.$answer1 = vm.$answers.eq(0);
+        vm.$answer2 = vm.$answers.eq(1);
+        vm.$answer3 = vm.$answers.eq(2);
+        vm.$answer4 = vm.$answers.eq(3);
+        vm.$p.text("Player " + Game.config.colors[activeColor]);
+        vm.$p.removeClass().addClass(activeColor);
+        vm.$modal.removeAttr("style");
+        vm.$body.addClass("overlay");
+        vm.$h3.text(vm.question["Frage"]);
+        vm.$answer1.text(vm.question["Antwort A"]).off();
+        vm.$answer2.text(vm.question["Antwort B"]).off();
+        vm.$answer3.text(vm.question["Antwort C"]).off();
+        vm.$answer4.text(vm.question["Antwort D"]).off();
+
+        vm.$answers.on('click', function (event) {
+            console.log("click Event", event);
+            event.preventDefault();
+            if (attackedColor == 'NONE') {
+                if ($(this).index() == vm.question["Schwierigkeit"]) { //TODO
+                    Game.question.removeCard();
+                    deferredObject.resolve({conquer: false});
+                } else {
+                    Game.question.conquer($attackedElement);
+                    Game.question.removeCard();
+                    deferredObject.resolve({conquer: true});
+                }
+            } else {
+                if ($(this).index() == vm.question["Schwierigkeit"]) { //TODO
+                    Game.question.removeCard();
+                    console.log("between removeCard and createQuestionCardForPlayer");
+                    Game.question.createQuestionCardForPlayer($attackedElement, attackedColor, 'NONE', deferredObject);
+                } else {
+                    Game.question.removeCard();
+                    deferredObject.resolve({conquer: false});
+                }
+            }
+        });
+
+        return vm;
+    },
+    removeCard: function () {
+        $('#modal').removeAttr("style").attr("style", "display: none;/*!*/");
+        $('#body').removeClass("overlay");
+    },
+    getRandomQuestionObject: function () {
+        return {
+            "Kategorie": "Multiple Choice",
+            "Frage": "Was gehört nicht zur Definition eines Projektes?",
+            "Antwort A": "projektspezifische Organisation",
+            "Antwort B": "Zielvorgabe",
+            "Antwort C": "teuer",
+            "Antwort D": "zeitliche Begrenzung",
+            "Schwierigkeit": "1",
+            "Quelle": "Skript, Seite 5",
+            "Überprüft": "Ja",
+            "Ersteller": "alle"
+        };
     }
 };
