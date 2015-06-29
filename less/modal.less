@@ -1,0 +1,91 @@
+html, body {
+    min-height: 100%;
+}
+
+body {
+    position: relative; /* needed if you position the pseudo-element absolutely */
+}
+
+body.overlay:after {
+    content: "";
+    display: block;
+    position: fixed; /* could also be absolute */
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+@modal-1-height: 300px;
+@modal-1-width: 400px;
+.modal {
+    /* some styles to position the modal at the center of the page */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: @modal-1-height;
+    height: @modal-1-width;
+    margin-left: -@modal-1-height/2;
+    margin-top: -@modal-1-width/2;
+
+    /* needed styles for the overlay */
+    z-index: 20;
+    background: rgba(255, 255, 255, 0.8);
+    h3 {
+        margin: 0px;
+        padding: 10px;
+        background: @color-6;
+        color: @color-5;
+    }
+    p {
+        margin: 0 0 5px 0;
+        padding: 5px;
+        color: @color-5;
+        &.color-1 {
+            background: @color-1;
+        }
+        &.color-2 {
+            background: @color-2;
+        }
+        &.color-3 {
+            background: @color-3;
+        }
+        &.color-4 {
+            background: @color-4;
+        }
+        &.color-5 {
+            background: @color-5;
+            color: @color-6;
+        }
+        &.color-6 {
+            background: @color-6;
+        }
+    }
+    div {
+        padding: 5px;
+    }
+    a {
+        text-decoration: none;
+        display: inline-block;
+        width: 100%;
+        margin: 5px;
+        padding: 8px;
+        background: @color-6;
+        color: @color-5;
+
+        &:nth-of-type(1)::before {
+            content: "A) ";
+        }
+        &:nth-of-type(2)::before {
+            content: "B) ";
+        }
+        &:nth-of-type(3)::before {
+            content: "C) ";
+        }
+        &:nth-of-type(4)::before {
+            content: "D) ";
+        }
+    }
+}
