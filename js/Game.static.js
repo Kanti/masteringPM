@@ -75,5 +75,61 @@ Game.static = {
             return Game.static.getElementByIndex($element, id + size);
         }
         return null;
+    },
+    waitForFinalEvent: (function () {
+        var timers = {};
+        return function (callback, ms, uniqueId) {
+            if (!uniqueId) {
+                uniqueId = "Don't call this twice without a uniqueId";
+            }
+            if (timers[uniqueId]) {
+                clearTimeout(timers[uniqueId]);
+            }
+            timers[uniqueId] = setTimeout(callback, ms);
+        };
+    })(),
+    setGameAreaSize: function (size) {
+        $('#css').html('.game-area-container.game-area-container{' +
+        '  height: ' + size + 'px;' +
+        '  width: ' + size + 'px;' +
+        '}');
+    },
+    setGameAreaContainerSize: function () {
+
+        var x = 0.3;
+
+        var win = $(window);
+        var height = win.height();
+        var width = win.width();
+        var max = height;
+        var ratio = height / width;
+        if (height > width) {
+            max = width;
+        }
+/* Möglichkeit 1
+        if (ratio < 0) {
+            ratio *= -1;
+        }
+        console.log(".", max, width, ratio);
+        if (ratio > (1 - x) && ratio < (1 + x)) {
+            ratio -= 1;
+            if (ratio < 0) {
+                ratio *= -1;
+            }
+            ratio = 100 - (x - ratio) * (100 / x);
+            ratio = ratio / 3 + 66.66666;
+            console.log("dawa", ratio);
+            max *= ratio / 100;
+        }
+//*/
+
+        //Möglichkeit 2
+        //max *= 0.9;
+
+        Game.static.setGameAreaSize(max);
+
+        $('html, body').animate({
+            scrollTop: $(".game-area-container").offset().top
+        }, 1);
     }
 };
