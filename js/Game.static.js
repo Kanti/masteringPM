@@ -31,9 +31,17 @@ Game.static = {
     haveATurn: function ($element) {
         return Game.static.currentColor($element) == Game.static.getColor($element);
     },
-    isWinner: function ($element, color) {
+    isEdgeElement: function ($element) {
         var size = Game.static.getGameSize($element);
-        return size * size == $element.parent().find('.' + color).length;
+        var index = Game.static.getIndex($element);
+        if (index <= size) {
+            return true;
+        }
+        if (index % size == 0 || index % size == size - 1) {
+            return true;
+        }
+        var elementsCount = size * size;
+        return index >= elementsCount - size;
     },
     getColor: function ($element) {
         return $element.attr('class').match("(color-[0-9]+)")[0];
@@ -95,9 +103,6 @@ Game.static = {
         '}');
     },
     setGameAreaContainerSize: function () {
-
-        var x = 0.3;
-
         var win = $(window);
         var height = win.height();
         var width = win.width();
@@ -106,7 +111,8 @@ Game.static = {
         if (height > width) {
             max = width;
         }
-/* Möglichkeit 1
+    /* Möglichkeit 1
+        var x = 0.3;
         if (ratio < 0) {
             ratio *= -1;
         }
@@ -121,7 +127,7 @@ Game.static = {
             console.log("dawa", ratio);
             max *= ratio / 100;
         }
-//*/
+    //*/
 
         //Möglichkeit 2
         //max *= 0.9;

@@ -11,7 +11,7 @@ Game.question = {
             $attackedElement.removeClass(attackedColor);
             $attackedElement.addClass(activeColor);
 
-            if (Game.static.isWinner($attackedElement, activeColor)) {
+            if (Game.static.isWinner.test($attackedElement, activeColor)) {
                 alert("you are the Winner " + Game.config.colors[activeColor]);
             }
         }
