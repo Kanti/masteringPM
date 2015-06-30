@@ -33,9 +33,14 @@ Game.question = {
         return deferredObject;
     },
     createQuestionCardForPlayer: function ($attackedElement, activeColor, attackedColor, deferredObject) {
-        console.log("createQuestionCardForPlayer", $attackedElement, activeColor, attackedColor, deferredObject);
+        if(activeColor == "color-0"){
+            Game.question.conquer($attackedElement);
+            Game.question.removeCard();
+            deferredObject.resolve({conquer: true});
+            return;
+        }
+        //console.log("createQuestionCardForPlayer", $attackedElement, activeColor, attackedColor, deferredObject);
         var vm = this;
-        vm.question = Game.question.getRandomQuestionObject();
         vm.$modal = $('#modal');
         vm.$body = $('#body');
         vm.$p = vm.$modal.find('p');
@@ -45,58 +50,82 @@ Game.question = {
         vm.$answer2 = vm.$answers.eq(1);
         vm.$answer3 = vm.$answers.eq(2);
         vm.$answer4 = vm.$answers.eq(3);
-        vm.$p.text("Player " + Game.config.colors[activeColor]);
-        vm.$p.removeClass().addClass(activeColor);
-        vm.$modal.removeAttr("style");
-        vm.$body.addClass("overlay");
-        vm.$h3.text(vm.question["Frage"]);
-        vm.$answer1.text(vm.question["Antwort A"]).off();
-        vm.$answer2.text(vm.question["Antwort B"]).off();
-        vm.$answer3.text(vm.question["Antwort C"]).off();
-        vm.$answer4.text(vm.question["Antwort D"]).off();
+        vm.question = Game.question.getRandomQuestionObject();
+        vm.question.done(function (data) {
+            console.log("Question: ", data["Frage"]);
+            vm.question = data;
 
-        vm.$answers.on('click', function (event) {
-            console.log("click Event", event);
-            event.preventDefault();
-            if (attackedColor == 'NONE') {
-                if ($(this).index() == vm.question["Schwierigkeit"]) { //TODO
-                    Game.question.removeCard();
-                    deferredObject.resolve({conquer: false});
+            vm.$p.text("Player " + Game.config.colors[activeColor]);
+            vm.$p.removeClass().addClass(activeColor);
+            vm.$modal.removeAttr("style");
+            vm.$body.addClass("overlay");
+            vm.$h3.text(vm.question["Frage"]);
+            vm.$answer1.text(vm.question["Antwort A"]).off();
+            vm.$answer2.text(vm.question["Antwort B"]).off();
+            vm.$answer3.text(vm.question["Antwort C"]).off();
+            vm.$answer4.text(vm.question["Antwort D"]).off();
+
+            vm.$answers.on('click', function (event) {
+                //console.log("click Event", event);
+                event.preventDefault();
+                if (attackedColor == 'NONE') {
+                    if ($(this).index() == vm.question["Schwierigkeit"]) { //TODO
+                        Game.question.removeCard();
+                        deferredObject.resolve({conquer: false});
+                    } else {
+                        Game.question.conquer($attackedElement);
+                        Game.question.removeCard();
+                        deferredObject.resolve({conquer: true});
+                    }
                 } else {
-                    Game.question.conquer($attackedElement);
-                    Game.question.removeCard();
-                    deferredObject.resolve({conquer: true});
+                    if ($(this).index() == vm.question["Schwierigkeit"]) { //TODO
+                        Game.question.removeCard();
+                        //console.log("between removeCard and createQuestionCardForPlayer");
+                        Game.question.createQuestionCardForPlayer($attackedElement, attackedColor, 'NONE', deferredObject);
+                    } else {
+                        Game.question.removeCard();
+                        deferredObject.resolve({conquer: false});
+                    }
                 }
-            } else {
-                if ($(this).index() == vm.question["Schwierigkeit"]) { //TODO
-                    Game.question.removeCard();
-                    console.log("between removeCard and createQuestionCardForPlayer");
-                    Game.question.createQuestionCardForPlayer($attackedElement, attackedColor, 'NONE', deferredObject);
-                } else {
-                    Game.question.removeCard();
-                    deferredObject.resolve({conquer: false});
-                }
-            }
+            });
         });
-
-        return vm;
     },
     removeCard: function () {
         $('#modal').removeAttr("style").attr("style", "display: none;/*!*/");
         $('#body').removeClass("overlay");
     },
+    getQuestions: function () {
+        if (Game.question.getQuestions["cache"]) {
+            return Game.question.getQuestions["cache"];
+        }
+        var deferredObject = $.Deferred();
+        $.getJSON("questions.json", function (data) {
+            data = $.map(data, function (val, i) {
+                switch (val['Kategorie']) {
+                    case 'Multiple Choice':
+                    case 'Ja/Nein':
+                        return val;
+                }
+            });
+            deferredObject.resolve(data);
+        });
+        Game.question.getQuestions["cache"] = deferredObject;
+        return deferredObject;
+    },
+    //WRONG:
     getRandomQuestionObject: function () {
-        return {
-            "Kategorie": "Multiple Choice",
-            "Frage": "Was gehört nicht zur Definition eines Projektes?",
-            "Antwort A": "projektspezifische Organisation",
-            "Antwort B": "Zielvorgabe",
-            "Antwort C": "teuer",
-            "Antwort D": "zeitliche Begrenzung",
-            "Schwierigkeit": "1",
-            "Quelle": "Skript, Seite 5",
-            "Überprüft": "Ja",
-            "Ersteller": "alle"
-        };
+        var deferredObject = $.Deferred();
+        if (Game.question.getRandomQuestionObject["cache"]) {
+            if (Game.question.getRandomQuestionObject["cache"].length > 0) {
+                deferredObject.resolve(Game.question.getRandomQuestionObject["cache"].pop());
+                return deferredObject;
+            }
+        }
+        var QuestionDeferredObject = Game.question.getQuestions();
+        QuestionDeferredObject.done(function (data) {
+            Game.question.getRandomQuestionObject["cache"] = Game.static.shuffle($.extend(true, [], data));
+            deferredObject.resolve(Game.question.getRandomQuestionObject["cache"].pop());
+        });
+        return deferredObject;
     }
 };

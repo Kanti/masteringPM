@@ -7,11 +7,11 @@
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script>var Game = Game || {};</script>
     <!--script src="js/teststuff.js"></script-->
+    <script src="js/Game.question.js"></script>
     <script src="js/Game.static.js"></script>
     <script src="js/Game.static.isWinner.js"></script>
     <script src="js/Game.config.js"></script>
     <script src="js/Game.main.js"></script>
-    <script src="js/Game.question.js"></script>
     <script src="js/Game.creator.js"></script>
     <script src="js/game.js"></script>
     <link rel="stylesheet" href="style.css" type="text/css">
@@ -20,9 +20,11 @@
 <body id="body">
 <div id="modal" class="modal" style="display: none;">
     <p class="color-1">Player Green</p>
+
     <h3>
         Wa
     </h3>
+
     <div>
         <a href="">a</a>
         <a href="">b</a>
@@ -38,24 +40,14 @@
 </div>
 <div style="text-align: center;">
     <button onclick="Game.creator.replaceWithGameFiled($('#here'), ['color-1', 'color-2'])">create 2 Player</button>
-    <button onclick="Game.creator.replaceWithGameFiled($('#here'), ['color-1', 'color-2', 'color-3'])">create 3 Player
-    </button>
-    <button onclick="Game.creator.replaceWithGameFiled($('#here'), ['color-1', 'color-2', 'color-3', 'color-4'])">create
-        4 Player
-    </button>
-    <button
-        onclick="Game.creator.replaceWithGameFiled($('#here'), ['color-1', 'color-2', 'color-3', 'color-4', 'color-5'])">
-        create 5 Player
-    </button>
-    <button
-        onclick="Game.creator.replaceWithGameFiled($('#here'), ['color-1', 'color-2', 'color-3', 'color-4', 'color-5', 'color-6'])">
-        create 6 Player
-    </button>
+    <button onclick="Game.creator.replaceWithGameFiled($('#here'), ['color-1', 'color-2', 'color-3'])">create 3 Player</button>
+    <button onclick="Game.creator.replaceWithGameFiled($('#here'), ['color-1', 'color-2', 'color-3', 'color-4'])">create 4 Player</button>
+    <button onclick="Game.creator.replaceWithGameFiled($('#here'), ['color-1', 'color-2', 'color-3', 'color-4', 'color-5'])">create 5 Player</button>
+    <button onclick="Game.creator.replaceWithGameFiled($('#here'), ['color-1', 'color-2', 'color-3', 'color-4', 'color-5', 'color-6'])">create 6 Player</button>
 </div>
 
 <ul>
-    <li>(choose color for Player(PlayerNames?))</li>
-    <li>fragen stuff!</li>
+    <li>fragen (Fragen Schwierigkeiten machen)</li>
     <li>design stuff!</li>
     <li>new Winning Condition!</li>
     <li>code quality!</li>

@@ -29,9 +29,9 @@ Game.main = function ($gameArea) {
         return result;
     };
     vm.newActive = function ($element) {
-        console.log("newActive", Game.static.currentColor($element), Game.static.getColor($element));
+        //console.log("newActive", Game.static.currentColor($element), Game.static.getColor($element));
         var arrayOfNearbyElements = vm.getNearbyElements($element);
-        console.log(arrayOfNearbyElements);
+        //console.log(arrayOfNearbyElements);
         $.each(arrayOfNearbyElements, function (index, $element) {
             $element.addClass('attacked');
         });
