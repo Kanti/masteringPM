@@ -33,7 +33,7 @@ Game.question = {
         return deferredObject;
     },
     createQuestionCardForPlayer: function ($attackedElement, activeColor, attackedColor, deferredObject) {
-        if(activeColor == "color-0"){
+        if (activeColor == "color-0") {
             Game.question.conquer($attackedElement);
             Game.question.removeCard();
             deferredObject.resolve({conquer: true});

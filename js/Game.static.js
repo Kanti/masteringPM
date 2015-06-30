@@ -112,26 +112,6 @@ Game.static = {
         if (height > width) {
             max = width;
         }
-    /* Möglichkeit 1
-        var x = 0.3;
-        if (ratio < 0) {
-            ratio *= -1;
-        }
-        console.log(".", max, width, ratio);
-        if (ratio > (1 - x) && ratio < (1 + x)) {
-            ratio -= 1;
-            if (ratio < 0) {
-                ratio *= -1;
-            }
-            ratio = 100 - (x - ratio) * (100 / x);
-            ratio = ratio / 3 + 66.66666;
-            console.log("dawa", ratio);
-            max *= ratio / 100;
-        }
-    //*/
-
-        //Möglichkeit 2
-        //max *= 0.9;
 
         Game.static.setGameAreaSize(max);
 
