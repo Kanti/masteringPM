@@ -7,7 +7,7 @@ Game.question = {
         var activeColor = Game.static.getColor($active);
         $attackedElement.removeClass(attackedColor).addClass(activeColor);
         if (Game.static.isWinner.test($attackedElement, activeColor)) {
-            alert("you are the Winner " + Game.config.colors[activeColor]);
+            alert("Du hast Gewonnen " + Game.config.colors[activeColor] + " !! :)");
         }
     },
     ask: function ($attackedElement) {
@@ -55,7 +55,7 @@ Game.question = {
             console.log("Question: ", data["Frage"]);
             vm.question = data;
 
-            vm.$p.text("Player " + Game.config.colors[activeColor]);
+            vm.$p.text("Spieler " + Game.config.colors[activeColor]);
             vm.$p.removeClass().addClass(activeColor);
             vm.$modal.removeAttr("style");
             vm.$body.addClass("overlay");
@@ -107,12 +107,12 @@ Game.question = {
                         return val;
                 }
             });
+            console.log("fragen Anzahl: ", data.length);
             deferredObject.resolve(data);
         });
         Game.question.getQuestions["cache"] = deferredObject;
         return deferredObject;
     },
-    //WRONG:
     getRandomQuestionObject: function () {
         var deferredObject = $.Deferred();
         if (Game.question.getRandomQuestionObject["cache"]) {
