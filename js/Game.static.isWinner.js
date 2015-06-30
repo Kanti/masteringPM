@@ -1,8 +1,9 @@
 var Game = Game || {};
+Game.static = Game.static || {};
 Game.static.isWinner = {
 
     has9FieldsAround: function ($element) {
-        console.log("test has9FieldsAround ", $element.get(0));
+        //console.log("test has9FieldsAround ", $element.get(0));
         var size = Game.static.getGameSize($element);
         var index = Game.static.getIndex($element);
         var color = Game.static.getColor($element);
@@ -41,7 +42,6 @@ Game.static.isWinner = {
         var size = Game.static.getGameSize($element);
 
         for (var i = 0; i < size * size; i++) {
-            console.log("i", i);
             var $tmpElement = Game.static.getElementByIndex($element, i);
             if (!$tmpElement) {
                 continue;

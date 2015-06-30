@@ -21,6 +21,12 @@ function doAsync2() {
     return deferredObject.promise();
 }
 
+
+var deferredObject = $.Deferred();
+deferredObject.resolve("juhu");
+deferredObject.done(function(data){console.log(data)});
+deferredObject.done(function(data){console.log(data)});
+deferredObject.done(function(data){console.log(data)});
 doAsync2()
     .progress(function (progressValue) {
         console.log("doAsync5 progress : " + progressValue)
