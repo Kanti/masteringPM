@@ -13,6 +13,7 @@
     <script src="js/Game.config.js"></script>
     <script src="js/Game.main.js"></script>
     <script src="js/Game.creator.js"></script>
+    <script src="js/Game.player.js"></script>
     <script src="js/game.js"></script>
     <link rel="stylesheet" href="style.css" type="text/css">
     <style id="css" class="forJavascriptOnly"></style>
@@ -34,20 +35,18 @@
 </div>
 <header>
     <img src="img/logowappen.png" alt="Logo, Mastering PM - Let's Plan A Project">
+    <div id="welcome">
+        <p>Willkommen, w&auml;hle die Spieleranzahl</p>
+        <input type="range" name="numberOfPlayers" min="2" max="6" step="1" id="numberOfPlayers" oninput="Game.player.setPlayerNumber()" onchange="Game.player.setPlayerNumber()">
+        <div class="playerinput"></div>
+    </div>
 </header>
 <div class="game-area-container">
     <div id="here"></div>
 </div>
-<div style="text-align: center;">
-    <button onclick="Game.creator.replaceWithGameFiled($('#here'), ['color-1', 'color-2'])">create 2 Player</button>
-    <button onclick="Game.creator.replaceWithGameFiled($('#here'), ['color-1', 'color-2', 'color-3'])">create 3 Player</button>
-    <button onclick="Game.creator.replaceWithGameFiled($('#here'), ['color-1', 'color-2', 'color-3', 'color-4'])">create 4 Player</button>
-    <button onclick="Game.creator.replaceWithGameFiled($('#here'), ['color-1', 'color-2', 'color-3', 'color-4', 'color-5'])">create 5 Player</button>
-    <button onclick="Game.creator.replaceWithGameFiled($('#here'), ['color-1', 'color-2', 'color-3', 'color-4', 'color-5', 'color-6'])">create 6 Player</button>
-</div>
 
 <ul>
-    <li>fragen (Fragen Schwierigkeiten machen)</li>
+    <li>fragen stuff!</li>
     <li>design stuff!</li>
     <li>new Winning Condition!</li>
     <li>code quality!</li>

@@ -1,7 +1,9 @@
 var Game = Game || {};
 
 $(function () {
-    Game.creator.replaceWithGameFiled($('#here'), ['color-1', 'color-2', 'color-3', 'color-4']);
+	Game.start = false;
+    //Game.creator.replaceWithGameFiled($('#here'), ['color-1', 'color-2', 'color-3', 'color-4']);
+    Game.player.start(Game.start);
     Game.static.setGameAreaContainerSize();
     Game.question.getQuestions();
 
