@@ -26,6 +26,7 @@ Game.creator = {
         return $.parseHTML(htmlString);
     },
     replaceWithGameFiled: function ($element, colors) {
+        Game.start = true;
         var tmp = Game.creator.newGame(colors);
         $element.replaceWith(tmp);
         Game.main($(tmp));
