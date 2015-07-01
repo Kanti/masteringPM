@@ -39,53 +39,51 @@ body.overlay:after {
   z-index: 10;
   background-color: rgba(0, 0, 0, 0.2);
 }
-.modal {
-  /* some styles to position the modal at the center of the page */
+#modal {
   position: fixed;
-  top: 50%;
+  top: -100%;
   left: 50%;
   width: 300px;
   height: 400px;
   margin-left: -150px;
   margin-top: -200px;
-  /* needed styles for the overlay */
   z-index: 20;
   background: rgba(255, 255, 255, 0.8);
 }
-.modal h3 {
+#modal h3 {
   margin: 0px;
   padding: 10px;
   background: #afa8a2;
   color: #364559;
 }
-.modal p {
+#modal p {
   margin: 0 0 5px 0;
   padding: 5px;
   color: #364559;
 }
-.modal p.color-1 {
+#modal p.color-1 {
   background: #eb7361;
 }
-.modal p.color-2 {
+#modal p.color-2 {
   background: #3b9bd9;
 }
-.modal p.color-3 {
+#modal p.color-3 {
   background: #e19e2a;
 }
-.modal p.color-4 {
+#modal p.color-4 {
   background: #5cb130;
 }
-.modal p.color-5 {
+#modal p.color-5 {
   background: #364559;
   color: #afa8a2;
 }
-.modal p.color-6 {
+#modal p.color-6 {
   background: #afa8a2;
 }
-.modal div {
+#modal div {
   padding: 5px;
 }
-.modal a {
+#modal a {
   text-decoration: none;
   display: inline-block;
   width: 100%;
@@ -94,17 +92,29 @@ body.overlay:after {
   background: #afa8a2;
   color: #364559;
 }
-.modal a:nth-of-type(1)::before {
+#modal a:nth-of-type(1)::before {
   content: "A) ";
 }
-.modal a:nth-of-type(2)::before {
+#modal a:nth-of-type(2)::before {
   content: "B) ";
 }
-.modal a:nth-of-type(3)::before {
+#modal a:nth-of-type(3)::before {
   content: "C) ";
 }
-.modal a:nth-of-type(4)::before {
+#modal a:nth-of-type(4)::before {
   content: "D) ";
+}
+#modal.show {
+  transition: all 0.25s;
+  transition-timing-function: cubic-bezier(0, 1, 0, 1);
+  display: block;
+  top: 50%;
+}
+#modal.hide {
+  transition: all 0.25s;
+  transition-timing-function: initial;
+  display: block;
+  top: 200%;
 }
 .playerinput .color-1 {
   color: #eb7361;

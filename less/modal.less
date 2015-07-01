@@ -18,19 +18,19 @@ body.overlay:after {
     background-color: rgba(0, 0, 0, 0.2);
 }
 
+@transitions: all 0.25s;
 @modal-1-height: 300px;
 @modal-1-width: 400px;
-.modal {
-    /* some styles to position the modal at the center of the page */
+
+#modal{
     position: fixed;
-    top: 50%;
+    top: -100%;
     left: 50%;
     width: @modal-1-height;
     height: @modal-1-width;
     margin-left: -@modal-1-height/2;
     margin-top: -@modal-1-width/2;
 
-    /* needed styles for the overlay */
     z-index: 20;
     background: rgba(255, 255, 255, 0.8);
     h3 {
@@ -88,4 +88,17 @@ body.overlay:after {
             content: "D) ";
         }
     }
+}
+
+#modal.show {
+    transition: @transitions;
+    transition-timing-function: cubic-bezier(0,1,0,1);
+    display: block;
+    top: 50%;
+}
+#modal.hide {
+    transition: @transitions;
+    transition-timing-function: initial;
+    display: block;
+    top: 200%;
 }

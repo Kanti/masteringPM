@@ -28,7 +28,6 @@ Game.player = {
         for (var i = 0; i < numberOfPlayers; i++) {
             arr.push("color-" + (i + 1));
         }
-        ;
         Game.creator.replaceWithGameFiled($('#here'), arr);
     },
     getName: function (colorId) {
