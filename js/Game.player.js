@@ -11,11 +11,12 @@ Game.player = {
         var $playerinput = $(".playerinput");
         $playerinput.empty();
         var num = parseInt($("#numberOfPlayers").val());
+        $playerinput.append("Spieler: " + num);
         for (var i = 1; i <= num; i++) {
             var thiscolorid = "color-" + i;
             var thiscolor = this.getName(thiscolorid);
             var nameInput = "<input type='text' class=" + thiscolorid + " name=" + thiscolorid + " onchange='Game.player.setPlayerName(this.name, this.value)' value=" + thiscolor + ">";
-            $playerinput.append("<br>" + nameInput);
+            $playerinput.append(nameInput);
         }
         $playerinput.append("<br><button onclick='Game.player.generatePlayerSize(" + num + ")'>Start</button>");
     },
