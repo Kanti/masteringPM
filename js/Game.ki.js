@@ -1,35 +1,36 @@
 var Game = Game || {};
 Game.ki = {
-	var enabled = "false";
-	var difficulty = "none";
+	var botEasyProb = 25; 	//--> 25% probability
+	var botModerateProb = 50;
+	var botHardProb = 75;
+	var botProbActiv = -1;
 	
-	var botColorId = "-1";
-    var botEasyProb = "25%";
-	var botModerateProb = "50%";
-	var botHardProb = "75%";
+	var botEnabled = "false";
+	var botDifficulty = "none";
+	var botColorId = -1;
 	
-	
-	if (Game.config.colors[color]){
-		alert("KI Gegner " + difficulty + " wurde Hinzugefügt." + Game.player.getName(botColorId); + " !! :)");
-	}
-        	
-		
-/*
-        var numPlayers = parseInt($("#numberOfPlayers").val());
-        for (var i = 1; i <= numPlayers; i++) {
-            var thiscolorid = "color-" + i; 		//Evtl name des Spielers oder Bots
-            var thiscolor = Game.player.getName(thiscolorid); // this.getName
-			var count = 0;
-		
-        }
-
-		*/
-		
-		
+	activ: {
+        'enabled': 'false',
+        'difficulty': 'none',
+		'probActiv' : '-1',
+		'colorId':'-1'
+		}
 		SelectField: function (){
 			// dort soll das nächste Feld ausgewählt werden, das angegriffen wird.
-		}
+		},
 		SelectAnswer: function (){
 			//dort soll die passende Antwort ausgewählt werden.
+
+			var rand = rand();
+			if(rand <= botProbActiv){
+				return 1; //Gibt 1 Zurück falls die Antwort richtig ist.
+			}else{
+				return 0;
+			}
+		},
+		rand: function () {
+			//Erzeugt Zufallszahlen von 1 bis Einschlieslich max, mit gleicher Wahrscheinlichkeit!
+			var min = 1, max = 100;
+			return Math.floor(Math.random() * (max - min + 1)) + min;
 		}
 };
