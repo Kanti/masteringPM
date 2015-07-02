@@ -27,6 +27,7 @@ Game.creator = {
     },
     replaceWithGameFiled: function ($element, colors) {
         Game.start = true;
+        Game.static.setGameAreaContainerSize();
         var tmp = Game.creator.newGame(colors);
         $element.replaceWith(tmp);
         Game.main($(tmp));
