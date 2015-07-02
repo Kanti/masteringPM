@@ -37,27 +37,30 @@ body.overlay:after {
   height: 100%;
   width: 100%;
   z-index: 10;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(255, 255, 255, 0.8);
 }
 #modal {
   position: fixed;
   top: -100%;
   left: 50%;
-  width: 300px;
-  height: 400px;
-  margin-left: -150px;
-  margin-top: -200px;
+  width: 27.167em;
+  /*min-height: 33.333em;*/
+  height: auto;
+  margin-left: -13.667em;
+  margin-top: -16.667em;
   z-index: 20;
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(54, 69, 89, 0.9);
 }
 #modal h3 {
-  margin: 0px;
-  padding: 10px;
-  background: #afa8a2;
+  text-align: center;
+  margin: 0.9em;
+  padding: 3.333em 0.833em;
+  background: #f0f0f0;
   color: #364559;
 }
 #modal p {
-  margin: 0 0 5px 0;
+  text-align: center;
+  margin: 0;
   padding: 5px;
   color: #364559;
 }
@@ -81,16 +84,27 @@ body.overlay:after {
   background: #afa8a2;
 }
 #modal div {
-  padding: 5px;
+  padding: 0 1em 1em 1em;
 }
 #modal a {
   text-decoration: none;
   display: inline-block;
   width: 100%;
-  margin: 5px;
-  padding: 8px;
-  background: #afa8a2;
+  height: auto;
+  margin: 0;
+  padding: 1.433em 0.833em;
+  background: #f0f0f0;
   color: #364559;
+}
+#modal a:not(:last-child){
+  border-bottom: #0e0e0e 2px solid; 
+}
+#modal a:hover{
+  border-left: #e19e2a 5px solid; 
+  background-image: url(img/logowappen.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: right;
 }
 #modal a:nth-of-type(1)::before {
   content: "A) ";

@@ -15,34 +15,37 @@ body.overlay:after {
     height: 100%;
     width: 100%;
     z-index: 10;
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(255, 255, 255, 0.8); /* */
 }
 
 @transitions: all 0.25s;
-@modal-1-height: 300px;
-@modal-1-width: 400px;
+@modal-1-height: auto; /* */
+@modal-1-width: 27.167em;
 
 #modal{
     position: fixed;
     top: -100%;
     left: 50%;
     width: @modal-1-height;
+    /*min-height: 33.333em;*/
     height: @modal-1-width;
-    margin-left: -@modal-1-height/2;
-    margin-top: -@modal-1-width/2;
+    margin-left: -13.667em;
+    margin-top: -16.667em;/* Übergangsweise durch Werte ersetzt */
 
     z-index: 20;
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(54, 69, 89, 0.9); /* new Background-color*/
     h3 {
-        margin: 0px;
-        padding: 10px;
-        background: @color-6;
+        text-align: center;
+        margin: 0.9em;
+        padding: 3.333em 0.833em; /* new margin and paddings */
+        background: #f0f0f0;/*@color-6;*/
         color: @color-5;
     }
     p {
-        margin: 0 0 5px 0;
+        text-align: center; /*alignment and margin*/
+        margin: 0;
         padding: 5px;
-        color: @color-5;
+        color:  @color-5;
         &.color-1 {
             background: @color-1;
         }
@@ -64,15 +67,16 @@ body.overlay:after {
         }
     }
     div {
-        padding: 5px;
+        padding: 0 1em 1em 1em; /* new padding */
     }
     a {
         text-decoration: none;
         display: inline-block;
         width: 100%;
-        margin: 5px;
-        padding: 8px;
-        background: @color-6;
+        height: auto;
+        margin: 0;
+        padding:  1.433em 0.833em;
+        background: #f0f0f0; /*height, margin, padding, background*/
         color: @color-5;
 
         &:nth-of-type(1)::before {
@@ -86,6 +90,16 @@ body.overlay:after {
         }
         &:nth-of-type(4)::before {
             content: "D) ";
+        }
+        &:not(:last-child){ /*new*/
+            border-bottom: #0e0e0e 2px solid; 
+        }
+        &:hover{  /*new*/
+            border-left: #e19e2a 5px solid; 
+            background-image: url(img/logowappen.png); /*hier das nur wappen dingens verwenden, is aber noch net transparent*/
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: right;
         }
     }
 }
