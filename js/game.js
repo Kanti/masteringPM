@@ -9,5 +9,6 @@ $(function () {
     $(window).on('resize', function () {
         Game.static.waitForFinalEvent(Game.static.setGameAreaContainerSize);
     });
+	//console.log(Game.ki.SelectAnswer(2,"Bot-mittel"));
 });
 
