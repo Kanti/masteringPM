@@ -35,5 +35,32 @@ Game.player = {
     },
     setPlayerName: function (color, name) {
         Game.config.colors[color] = name;
+		//Ausgeklammert bis KI Fertig ist.
+		/*
+		if(Game.ki.botEnabled == "false"){
+				if(name=="Bot-Easy"){
+					Game.ki.botDifficulty = "easy";
+					Game.ki.botEnabled = "true";
+					Game.ki.botProbActiv = Game.ki.botEasyProb;
+				}
+				if(name=="Bot-Moderate)"){
+					Game.ki.botDifficulty = "moderate";
+					Game.ki.botEnabled = "true";
+					Game.ki.botProbActiv = Game.ki.botModProb;
+				}
+				if(name=="Bot-Hard"){
+					Game.ki.botDifficulty = "hard";
+					Game.ki.botEnabled = "true";
+					Game.ki.botProbActiv = Game.ki.botHardProb;
+				}
+				if(Game.ki.botEnabled == "true"){
+						Game.ki.botColorId = color;
+						alert("KI Gegner " + Game.ki.botDifficulty + " wurde Hinzugefügt." + getName(color); + " !! :)");
+				}
+			}else if(Game.ki.botEnabled == "true"){
+				 alert("Fehler: Es wurde mehr als ein Bot Hinzugefügt!!!");
+				 Game.ki.botEnabled = "blocked";
+			}
+			*/
     }
 };
