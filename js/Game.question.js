@@ -153,7 +153,8 @@ Game.question = {
             return Game.question.getQuestions["cache"];
         }
         var deferredObject = $.Deferred();
-        $.getJSON("questions.json", function (data) {
+        $.getJSON("questions/questions.json", function (data) {
+            data = data.questions;
             data = $.map(data, function (val, i) {
                 switch (val['Kategorie']) {
                     case 'Multiple Choice':
