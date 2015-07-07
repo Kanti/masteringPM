@@ -25,7 +25,7 @@ Game.question = {
         vm.$p.removeClass().addClass(activeColor);
         vm.$modal.removeClass().addClass("show");
         vm.$body.addClass("overlay");
-        vm.$h3.text("Suche dir eine Schwirigkeit aus");
+        vm.$h3.text("Suche dir eine Schwierigkeit aus");
         vm.$answer1.text("1").off();
         vm.$answer2.text("2").off();
         vm.$answer3.text("3").off();
@@ -153,7 +153,8 @@ Game.question = {
             return Game.question.getQuestions["cache"];
         }
         var deferredObject = $.Deferred();
-        $.getJSON("questions.json", function (data) {
+        $.getJSON("questions/questions.json", function (data) {
+            data = data.questions;
             data = $.map(data, function (val, i) {
                 switch (val['Kategorie']) {
                     case 'Multiple Choice':
