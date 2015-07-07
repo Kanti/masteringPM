@@ -1,28 +1,38 @@
 var Game = Game || {};
 Game.ki = {
-	var botEasyProb = 25; 	//--> 25% probability
-	var botModerateProb = 50;
-	var botHardProb = 75;
-	var botProbActiv = -1;
+	botEasyProb : 25,	//--> 25% probability
+	botModerateProb : 50,
+	botHardProb : 75,
+	botProbActiv : -1,
 	
-	var botEnabled = "false";
-	var botDifficulty = "none";
-	var botColorId = -1;
+	botEnabled : "false",
+	botDifficulty : "none",
+	botColorId : -1,
 	
 	activ: {
-        'enabled': 'false',
-        'difficulty': 'none',
-		'probActiv' : '-1',
-		'colorId':'-1'
-		}
-		SelectField: function (){
+        enabled : 'false',
+        difficulty : 'none',
+		probActiv : '-1',
+		colorId :'-1'
+		},
+		SelectField: function (botName){
 			// dort soll das nächste Feld ausgewählt werden, das angegriffen wird.
 		},
-		SelectAnswer: function (){
+		SelectAnswer: function (questionDifficulty,botName){
 			//dort soll die passende Antwort ausgewählt werden.
-
-			var rand = rand();
-			if(rand <= botProbActiv){
+			var rand = this.rand();
+			
+			if(this.questionDifficulty==1){
+				this.botProbActiv = this.botProbActiv+25; //einfach schafft es zu 50%; mittel zu 75%; schwer zu 100%
+				if(this.botDifficulty=="hard"){
+					this.botProbActiv = 100;
+				}
+			}else if(this.questionDifficulty==2){
+				//einfach schafft es zu 25%; mittel zu 50%; schwer zu 75%
+			}else if(this.questionDifficulty==3){
+				this.botProbActiv = this.botProbActiv-15; //einfach schafft es zu 10%; mittel zu 35%; schwer zu 60%	
+			}
+			if(rand <= this.botProbActiv){
 				return 1; //Gibt 1 Zurück falls die Antwort richtig ist.
 			}else{
 				return 0;
