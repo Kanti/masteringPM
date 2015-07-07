@@ -7,11 +7,17 @@ Game.question = {
         var activeColor = Game.static.getColor($active);
         $attackedElement.removeClass(attackedColor).addClass(activeColor);
         if (Game.static.isWinner.test($attackedElement, activeColor)) {
-            alert("Du hast Gewonnen " + Game.config.colors[activeColor] + " !! :)");
+            $('#here').empty().text("Du hast Gewonnen " + Game.config.colors[activeColor] + " !! :)");
+            $('#welcome').show();
         }
     },
-    createDifficultyCard: function (activeColor) {
+    createDifficultyCard: function (activeColor, attackedColor) {
         var deferredObject = $.Deferred();
+
+        if (attackedColor == "color-0") {
+            deferredObject.resolve(3);
+            return deferredObject;
+        }
         //ShowCard
         var vm = Game.question.createCard();
 
@@ -19,7 +25,7 @@ Game.question = {
         vm.$p.removeClass().addClass(activeColor);
         vm.$modal.removeClass().addClass("show");
         vm.$body.addClass("overlay");
-        vm.$h3.text("Suche dir eine Schwirigkeit aus");
+        vm.$h3.text("Suche dir eine Schwierigkeit aus");
         vm.$answer1.text("1").off();
         vm.$answer2.text("2").off();
         vm.$answer3.text("3").off();
@@ -27,7 +33,11 @@ Game.question = {
 
         vm.$answers.on('click', function (event) {
             event.preventDefault();
-            deferredObject.resolve(parseInt($(this).index()) + 1);
+            Game.question.removeCard();
+            var difficulty = parseInt($(this).index()) + 1;
+            setTimeout(function () {
+                deferredObject.resolve(difficulty);
+            }, 300);
         });
 
         return deferredObject;
@@ -39,21 +49,9 @@ Game.question = {
 
         var deferredObject = $.Deferred();
 
-        Game.question.createDifficultyCard(activeColor).then(function (difficulty) {
+        Game.question.createDifficultyCard(activeColor, attackedColor).then(function (difficulty) {
             Game.question.createQuestionCardForPlayer($attackedElement, activeColor, attackedColor, deferredObject, difficulty);
         });
-        /*
-         var conquer = confirm("player " + Game.config.colors[attackedColor] + " you are under Attack by player " + Game.config.colors[activeColor]);
-         if (conquer) {
-         $attackedElement.removeClass(attackedColor).addClass(activeColor);
-
-         if (Game.static.isWinner.test($attackedElement, activeColor)) {
-         alert("you are the Winner " + Game.config.colors[activeColor]);
-         }
-         }
-         deferredObject.resolve({conquer: conquer});*/
-        /*deferredObject.notify(1);
-         deferredObject.reject(randomValue, "errorCode");*/
         return deferredObject;
     },
     createCard: function () {
@@ -80,7 +78,7 @@ Game.question = {
         var vm = Game.question.createCard();
         vm.question = Game.question.getRandomQuestionObject(difficulty);
         vm.question.done(function (data) {
-            console.log("Question: ", data["Frage"], data["Schwierigkeit"]);
+            console.log("Question: ", data["Frage"], ": ", data["Richtige Antwort"]);
             vm.question = data;
 
             vm.$p.text("Spieler " + Game.config.colors[activeColor]);
@@ -88,20 +86,29 @@ Game.question = {
             vm.$modal.removeClass().addClass("show");
             vm.$body.addClass("overlay");
             vm.$h3.text(vm.question["Frage"]);
+            var count = 4;
+            while(vm.question["Antwort A"] == "" && count != 0){
+                vm.question["Antwort A"] = vm.question["Antwort B"];
+                vm.question["Antwort B"] = vm.question["Antwort C"];
+                vm.question["Antwort C"] = vm.question["Antwort D"];
+                vm.question["Antwort D"] = "";
+                count--;
+            }
+
             vm.$answer1.text(vm.question["Antwort A"]).off();
-            if(!vm.question["Antwort A"]){
+            if (!vm.question["Antwort A"]) {
                 vm.$answer1.hide();
             }
             vm.$answer2.text(vm.question["Antwort B"]).off();
-            if(!vm.question["Antwort B"]){
+            if (!vm.question["Antwort B"]) {
                 vm.$answer2.hide();
             }
             vm.$answer3.text(vm.question["Antwort C"]).off();
-            if(!vm.question["Antwort C"]){
+            if (!vm.question["Antwort C"]) {
                 vm.$answer3.hide();
             }
             vm.$answer4.text(vm.question["Antwort D"]).off();
-            if(!vm.question["Antwort D"]){
+            if (!vm.question["Antwort D"]) {
                 vm.$answer4.hide();
             }
 
@@ -109,7 +116,7 @@ Game.question = {
                 //console.log("click Event", event);
                 event.preventDefault();
                 if (attackedColor == 'NONE') {
-                    if ($(this).index() == vm.question["Schwierigkeit"]) { //TODO
+                    if ($(this).text().trim() == vm.question["Richtige Antwort"].trim()) {
                         Game.question.removeCard();
                         deferredObject.resolve({conquer: false});
                     } else {
@@ -118,7 +125,7 @@ Game.question = {
                         deferredObject.resolve({conquer: true});
                     }
                 } else {
-                    if ($(this).index() == vm.question["Schwierigkeit"]) { //TODO
+                    if ($(this).text().trim() == vm.question["Richtige Antwort"].trim()) {
                         Game.question.removeCard();
                         //console.log("between removeCard and createQuestionCardForPlayer");
                         setTimeout(function () {
@@ -146,7 +153,8 @@ Game.question = {
             return Game.question.getQuestions["cache"];
         }
         var deferredObject = $.Deferred();
-        $.getJSON("questions.json", function (data) {
+        $.getJSON("questions/questions.json", function (data) {
+            data = data.questions;
             data = $.map(data, function (val, i) {
                 switch (val['Kategorie']) {
                     case 'Multiple Choice':
@@ -157,8 +165,8 @@ Game.question = {
                 }
             });
             var realData = [];
-            $.each(data, function (i,question) {
-                if(!realData[question["Schwierigkeit"]]){
+            $.each(data, function (i, question) {
+                if (!realData[question["Schwierigkeit"]]) {
                     realData[question["Schwierigkeit"]] = [];
                 }
                 realData[question["Schwierigkeit"]].push(question);
@@ -171,7 +179,7 @@ Game.question = {
         return deferredObject;
     },
     getRandomQuestionObject: function (difficulty) {
-        console.log("difficulty:",difficulty);
+        console.log("difficulty:", difficulty);
         var deferredObject = $.Deferred();
         if (Game.question.getRandomQuestionObject["cache"] && Game.question.getRandomQuestionObject["cache"][difficulty]) {
             if (Game.question.getRandomQuestionObject["cache"][difficulty].length > 0) {
@@ -182,10 +190,10 @@ Game.question = {
         var QuestionDeferredObject = Game.question.getQuestions();
         QuestionDeferredObject.done(function (data) {
             Game.question.getRandomQuestionObject["cache"] = [];
-            $.each(data,function(i,val){
+            $.each(data, function (i, val) {
                 Game.question.getRandomQuestionObject["cache"][i] = Game.static.shuffle($.extend(true, [], val));
             });
-            console.log("getRandomQuestionObject[cache]",Game.question.getRandomQuestionObject["cache"]);
+            console.log("getRandomQuestionObject[cache]", Game.question.getRandomQuestionObject["cache"]);
             deferredObject.resolve(Game.question.getRandomQuestionObject["cache"][difficulty].pop());
         });
         return deferredObject;

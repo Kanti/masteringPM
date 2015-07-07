@@ -2,8 +2,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Mastering PM - Let's Plan A Project</title>
-    <meta name=viewport content="width=device-width, initial-scale=1">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#272c34">
     <script src="js/jquery.min.js"></script>
     <script>var Game = Game || {};</script>
     <!--script src="js/teststuff.js"></script-->
@@ -22,7 +22,9 @@
 <body id="body">
 <div id="modal">
     <p>Player Green</p>
+
     <h3>Frage?</h3>
+
     <div>
         <a href="">Antwort 1</a>
         <a href="">Antwort 2</a>
@@ -31,12 +33,12 @@
     </div>
 </div>
 <header>
-    <img src="img/logowappen.png" alt="Logo, Mastering PM - Let's Plan A Project">
-
     <div id="welcome">
+        <img src="img/logowappen.png" alt="Logo, Mastering PM - Let's Plan A Project">
+
         <p>Willkommen, w&auml;hle die Spieleranzahl</p>
         <input type="range" name="numberOfPlayers" min="2" max="6" step="1" id="numberOfPlayers"
-               oninput="Game.player.setPlayerNumber()" onchange="Game.player.setPlayerNumber()">
+               oninput="Game.player.setPlayerNumber()" onchange="Game.player.setPlayerNumber()" value="2">
 
         <div class="playerinput"></div>
     </div>
