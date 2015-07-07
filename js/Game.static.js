@@ -119,11 +119,11 @@ Game.static = {
             scrollTop: $(".game-area-container").offset().top
         }, 1);
     },
-		random: function (min,max) {
-			//Erzeugt Zufallszahlen von min bis Einschlieslich max, mit gleicher Wahrscheinlichkeit!
-			max = max || 100;
-			min = min || 1;
-	
-			return Math.floor(Math.random() * (max - min + 1)) + min;
-		}
+    random: function (min, max) {
+        //Erzeugt Zufallszahlen von min bis Einschlieslich max, mit gleicher Wahrscheinlichkeit!
+        max = max || 100;
+        min = min || 1;
+
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
 };
