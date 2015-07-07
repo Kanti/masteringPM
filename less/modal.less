@@ -130,7 +130,10 @@ body.overlay:after {
     }
     @media all and (max-width: 768px) {
         width: 100%;
-        margin: -250px 0 0 -50%;
+        margin: 0 0 0 -50%;
+        &.show{
+            top: 0;
+        }
     }
     @media all and (min-width: 769px) and (max-width: 1024px) {
         width: 80%;
