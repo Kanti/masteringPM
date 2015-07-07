@@ -36,8 +36,10 @@ Game.player = {
     setPlayerName: function (color, name) {
         Game.config.colors[color] = name;
 		//Ausgeklammert bis KI Fertig ist.
+
 		/*
 		if(Game.ki.botEnabled == "false"){
+			
 				if(name=="Bot-Easy"){
 					Game.ki.botDifficulty = "easy";
 					Game.ki.botEnabled = "true";
@@ -55,7 +57,7 @@ Game.player = {
 				}
 				if(Game.ki.botEnabled == "true"){
 						Game.ki.botColorId = color;
-						alert("KI Gegner " + Game.ki.botDifficulty + " wurde Hinzugefügt." + getName(color); + " !! :)");
+						alert("KI Gegner " + Game.ki.botDifficulty + " wurde Hinzugefügt." + Game.player.getName(color) + " !! :)");
 				}
 			}else if(Game.ki.botEnabled == "true"){
 				 alert("Fehler: Es wurde mehr als ein Bot Hinzugefügt!!!");
