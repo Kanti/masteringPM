@@ -69,8 +69,11 @@ Game.ki = {
 
             return Fields;
         },
-        GetOneAttackableField: function($array) {
-            // To be filled
+        getOneAttackableField: function($array) {
+            var nearbyElements = Game.static.getNearbyElements($array[Game.static.random(0,$array.length-1)]);
+            if (nearbyElements.length!=0) {
+                return nearbyElements[Game.static.random(0, nearbyElements.length - 1)];
             }
+            else return Game.ki.getOneAttackableField($array);
         }
 };
