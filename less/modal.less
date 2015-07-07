@@ -19,19 +19,28 @@ body.overlay:after {
 }
 
 @transitions: all 0.25s;
-@modal-1-height: auto;
-/* */
-@modal-1-width: 27.167em;
+
+#modal.show {
+    transition: @transitions;
+    transition-timing-function: cubic-bezier(0, 1, 0, 1);
+    display: block;
+    top: 50%;
+}
+
+#modal.hide {
+    transition: @transitions;
+    transition-timing-function: initial;
+    display: block;
+    top: 200%;
+}
 
 #modal {
-    position: fixed;
+    position: absolute;
+
     top: -100%;
     left: 50%;
-    width: @modal-1-height;
-    /*min-height: 33.333em;*/
-    height: @modal-1-width;
-    margin-left: -13.667em;
-    margin-top: -16.667em; /* Übergangsweise durch Werte ersetzt */
+    width: 80%;
+    margin: -250px 0 0 -40%;
 
     z-index: 20;
     background: rgba(54, 69, 89, 0.9); /* new Background-color*/
@@ -76,7 +85,7 @@ body.overlay:after {
         width: 100%;
         height: auto;
         margin: 0;
-        padding: 1.433em 0.833em;
+        padding: 1.433em 5em 1.433em 0.833em;
         background: #f0f0f0; /*height, margin, padding, background*/
         color: @color-5;
 
@@ -98,25 +107,25 @@ body.overlay:after {
         }
         &:hover {
             /*new*/
+            position: relative;
             border-left: #e19e2a 5px solid;
-            background-image: url(img/logowappen.png); /*hier das nur wappen dingens verwenden, is aber noch net transparent*/
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: right;
+
+            &:after {
+                @factor: 0.04;
+                position: absolute;
+                content: "";
+
+                display: inline-block;
+                width: 1890px * @factor;
+                height: 1417px * @factor;
+
+                margin: 0 0 -1.433em -0.833em;
+                top: 0;
+                right: 0;
+
+                background-image: url(img/logowappen.png);
+                background-size: cover;
+            }
         }
     }
-}
-
-#modal.show {
-    transition: @transitions;
-    transition-timing-function: cubic-bezier(0, 1, 0, 1);
-    display: block;
-    top: 50%;
-}
-
-#modal.hide {
-    transition: @transitions;
-    transition-timing-function: initial;
-    display: block;
-    top: 200%;
 }

@@ -107,7 +107,7 @@ Game.question = {
                 //console.log("click Event", event);
                 event.preventDefault();
                 if (attackedColor == 'NONE') {
-                    if ($(this).index() == vm.question["Schwierigkeit"]) { //TODO
+                    if ($(this).index() == vm.question["Schwierigkeit"] - 1) {
                         Game.question.removeCard();
                         deferredObject.resolve({conquer: false});
                     } else {
@@ -116,7 +116,7 @@ Game.question = {
                         deferredObject.resolve({conquer: true});
                     }
                 } else {
-                    if ($(this).index() == vm.question["Schwierigkeit"]) { //TODO
+                    if ($(this).index() == vm.question["Schwierigkeit"] - 1) {
                         Game.question.removeCard();
                         //console.log("between removeCard and createQuestionCardForPlayer");
                         setTimeout(function () {
