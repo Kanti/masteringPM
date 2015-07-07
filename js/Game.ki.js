@@ -11,24 +11,26 @@ Game.ki = {
 	
 		selectDifficulty: function (botName){
 			var difficulty;
-			if(botName=="Bot-1"){
+			if(botName=="bot-1"){
                 difficulty = 1;
-            }else if(botName=="Bot-2"){
-                difficulty = Game.static.rand(1,3);
-            }else if(botName=="Bot-3"){
-                difficulty = Game.static.rand(2,3);
-            }else if(botName=="Bot-4"){
-                difficulty = 3;
+            }else if(botName=="bot-2"){
+                difficulty = Game.static.random(1,2);
+            }else if(botName=="bot-3"){
+                difficulty = Game.static.random(1,3);
+            }else if(botName=="bot-4"){
+                difficulty = Game.static.random(2,3);
             }else{
                 difficulty = 3;
             }
 			//alert("F: selectDifficulty, " + difficulty);
 			return difficulty;
 		},
-		SelectField: function (botName){
+		selectField: function (botName){
 			// dort soll das nächste Feld ausgewählt werden, das angegriffen wird.
+			
+	
 		},
-		SelectAnswer: function (questionDifficulty,botName){
+		selectAnswer: function (questionDifficulty,botName){
 			//dort soll die passende Antwort ausgewählt werden.
 			var rand = Game.static.rand(100);
             var botActiv = 0;
@@ -72,5 +74,5 @@ Game.ki = {
         GetOneAttackableField: function($array) {
             // To be filled
             }
-        }
+        
 };

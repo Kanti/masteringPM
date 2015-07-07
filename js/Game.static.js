@@ -119,7 +119,7 @@ Game.static = {
             scrollTop: $(".game-area-container").offset().top
         }, 1);
     },
-		getRand: function (min,max) {
+		random: function (min,max) {
 			//Erzeugt Zufallszahlen von min bis Einschlieslich max, mit gleicher Wahrscheinlichkeit!
 			max = max || 100;
 			min = min || 1;
