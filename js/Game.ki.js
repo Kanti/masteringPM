@@ -52,7 +52,7 @@ Game.ki = {
         } else if (this.questionDifficulty == 3) {
             botActiv = botActiv - 15;
         }
-        if (Game.static.rand() <= botActiv) {
+        if (Game.static.random() <= botActiv) {
             return 1; //Gibt 1 Zurück falls die Antwort richtig ist.
         } else {
             return 0;
