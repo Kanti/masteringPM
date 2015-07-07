@@ -55,5 +55,22 @@ Game.ki = {
 			}else{
 				return 0;
 			}
-		}
+		},
+		getAllFields: function($element) {
+            var color = Game.static.getColor($element);
+            var size = Game.static.getGameSize($element);
+            var Fields =[];
+
+            for (var i = 0; i <= 2*Game.static.getGameSize($element)-1; i++) {
+                if (color = Game.static.getColor(Game.static.getElementByIndex($element,i))) {
+                    Fields.push(Game.static.getElementByIndex($element,i))
+                }
+            }
+
+            return Fields;
+        },
+        GetOneAttackableField: function($array) {
+            // To be filled
+            }
+        }
 };
