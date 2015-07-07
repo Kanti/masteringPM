@@ -78,7 +78,7 @@ Game.question = {
         var vm = Game.question.createCard();
         vm.question = Game.question.getRandomQuestionObject(difficulty);
         vm.question.done(function (data) {
-            console.log("Question: ", data["Frage"], data["Schwierigkeit"]);
+            console.log("Question: ", data["Frage"], ": ", data["Richtige Antwort"]);
             vm.question = data;
 
             vm.$p.text("Spieler " + Game.config.colors[activeColor]);
@@ -86,6 +86,15 @@ Game.question = {
             vm.$modal.removeClass().addClass("show");
             vm.$body.addClass("overlay");
             vm.$h3.text(vm.question["Frage"]);
+            var count = 4;
+            while(vm.question["Antwort A"] == "" && count != 0){
+                vm.question["Antwort A"] = vm.question["Antwort B"];
+                vm.question["Antwort B"] = vm.question["Antwort C"];
+                vm.question["Antwort C"] = vm.question["Antwort D"];
+                vm.question["Antwort D"] = "";
+                count--;
+            }
+
             vm.$answer1.text(vm.question["Antwort A"]).off();
             if (!vm.question["Antwort A"]) {
                 vm.$answer1.hide();
@@ -107,7 +116,7 @@ Game.question = {
                 //console.log("click Event", event);
                 event.preventDefault();
                 if (attackedColor == 'NONE') {
-                    if ($(this).index() == vm.question["Schwierigkeit"]) { //TODO
+                    if ($(this).text().trim() == vm.question["Richtige Antwort"].trim()) {
                         Game.question.removeCard();
                         deferredObject.resolve({conquer: false});
                     } else {
@@ -116,7 +125,7 @@ Game.question = {
                         deferredObject.resolve({conquer: true});
                     }
                 } else {
-                    if ($(this).index() == vm.question["Schwierigkeit"]) { //TODO
+                    if ($(this).text().trim() == vm.question["Richtige Antwort"].trim()) {
                         Game.question.removeCard();
                         //console.log("between removeCard and createQuestionCardForPlayer");
                         setTimeout(function () {

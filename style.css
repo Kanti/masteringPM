@@ -40,17 +40,24 @@ body.overlay:after {
   background-color: rgba(255, 255, 255, 0.8);
   /* */
 }
-/* */
+#modal.show {
+  transition: all 0.25s;
+  transition-timing-function: cubic-bezier(0, 1, 0, 1);
+  display: block;
+  top: 50%;
+}
+#modal.hide {
+  transition: all 0.25s;
+  transition-timing-function: initial;
+  display: block;
+  top: 200%;
+}
 #modal {
-  position: fixed;
+  position: absolute;
   top: -100%;
   left: 50%;
-  width: auto;
-  /*min-height: 33.333em;*/
-  height: 27.167em;
-  margin-left: -13.667em;
-  margin-top: -16.667em;
-  /* Übergangsweise durch Werte ersetzt */
+  width: 80%;
+  margin: -250px 0 0 -40%;
   z-index: 20;
   background: rgba(54, 69, 89, 0.9);
   /* new Background-color*/
@@ -100,7 +107,7 @@ body.overlay:after {
   width: 100%;
   height: auto;
   margin: 0;
-  padding: 1.433em 0.833em;
+  padding: 1.433em 5em 1.433em 0.833em;
   background: #f0f0f0;
   /*height, margin, padding, background*/
   color: #364559;
@@ -123,24 +130,20 @@ body.overlay:after {
 }
 #modal a:hover {
   /*new*/
+  position: relative;
   border-left: #e19e2a 5px solid;
+}
+#modal a:hover:after {
+  position: absolute;
+  content: "";
+  display: inline-block;
+  width: 75.6px;
+  height: 56.68px;
+  margin: 0 0 -1.433em -0.833em;
+  top: 0;
+  right: 0;
   background-image: url(img/logowappen.png);
-  /*hier das nur wappen dingens verwenden, is aber noch net transparent*/
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: right;
-}
-#modal.show {
-  transition: all 0.25s;
-  transition-timing-function: cubic-bezier(0, 1, 0, 1);
-  display: block;
-  top: 50%;
-}
-#modal.hide {
-  transition: all 0.25s;
-  transition-timing-function: initial;
-  display: block;
-  top: 200%;
+  background-size: cover;
 }
 .playerinput .color-1 {
   color: #eb7361;
