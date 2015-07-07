@@ -35,22 +35,20 @@ Game.player = {
     },
     setPlayerName: function (color, name) {
         Game.config.colors[color] = name;
-		//Ausgeklammert bis KI Fertig ist.
-
+		
+		//Ausgeklammert zum Testen notwendig
 		/*
-		if(Game.ki.botEnabled == "false"){
-			
-				if(name=="Bot-Easy"){
+				if(name=="bot-1"){
 					Game.ki.botDifficulty = "easy";
 					Game.ki.botEnabled = "true";
 					Game.ki.botProbActiv = Game.ki.botEasyProb;
 				}
-				if(name=="Bot-Moderate)"){
+				if(name=="bot-2)"){
 					Game.ki.botDifficulty = "moderate";
 					Game.ki.botEnabled = "true";
 					Game.ki.botProbActiv = Game.ki.botModProb;
 				}
-				if(name=="Bot-Hard"){
+				if(name=="bot-3"){
 					Game.ki.botDifficulty = "hard";
 					Game.ki.botEnabled = "true";
 					Game.ki.botProbActiv = Game.ki.botHardProb;
@@ -58,11 +56,9 @@ Game.player = {
 				if(Game.ki.botEnabled == "true"){
 						Game.ki.botColorId = color;
 						alert("KI Gegner " + Game.ki.botDifficulty + " wurde Hinzugefügt." + Game.player.getName(color) + " !! :)");
+						Game.ki.selectDifficulty(name);
+						Game.ki.botEnabled == "false"
 				}
-			}else if(Game.ki.botEnabled == "true"){
-				 alert("Fehler: Es wurde mehr als ein Bot Hinzugefügt!!!");
-				 Game.ki.botEnabled = "blocked";
-			}
 			*/
     }
 };
