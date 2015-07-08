@@ -27,22 +27,23 @@ Game.ki = {
     selectField: function ($element,botName) {
         // dort soll das nächste Feld ausgewählt werden, das angegriffen wird.
 
+
         if (botName == "bot-1") {
-           return getOneAttackableField($element);
+            console.log("getAllFields " + Game.ki.getAllFields($element));
+            return Game.ki.getOneAttackableField(Game.ki.getAllFields($element));
+
         } else if (botName == "bot-2") {
-            return getOneAttackableField($element);
+            return Game.ki.getOneAttackableField(Game.ki.getAllFields($element));
         } else if (botName == "bot-3") {
-            return getOneAttackableField($element);
+            return Game.ki.getOneAttackableField(Game.ki.getAllFields($element));
         } else if (botName == "bot-4") {
-            return getOneAttackableField($element);
+            return Game.ki.getOneAttackableField(Game.ki.getAllFields($element));
         } else {
-            return getOneAttackableField($element);
+            return Game.ki.getOneAttackableField(Game.ki.getAllFields($element));
         }
     },
     selectAnswer: function (botName,questionDifficulty) {
         //dort soll die passende Antwort ausgewählt werden.
-                //   console.log(Game.ki.getOneAttackableField());
-                 //  console.log(Game.ki.getAllFields());
         var rand = Game.static.random(100);
         var botActiv = 0;
         if (botName == "bot-1") {
@@ -86,7 +87,7 @@ Game.ki = {
         return Fields;
     },
     getOneAttackableField: function ($array) {
-        var nearbyElements = Game.static.getNearbyElements($array[Game.static.random(0, $array.length - 1)]);
+        var nearbyElements = Game.static.getNearbyElements($array[Game.static.random(0, $array.length - 1)]); //////is not a Function!!!!!
         if (nearbyElements.length != 0) {
             return nearbyElements[Game.static.random(0, nearbyElements.length - 1)];
         }
