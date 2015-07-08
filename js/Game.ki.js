@@ -22,25 +22,36 @@ Game.ki = {
         } else {
             difficulty = 3;
         }
-        //alert("F: selectDifficulty, " + difficulty);
         return difficulty;
     },
-    selectField: function (botName) {
+    selectField: function ($element,botName) {
         // dort soll das nächste Feld ausgewählt werden, das angegriffen wird.
 
-
+        if (botName == "bot-1") {
+           return getOneAttackableField($element);
+        } else if (botName == "bot-2") {
+            return getOneAttackableField($element);
+        } else if (botName == "bot-3") {
+            return getOneAttackableField($element);
+        } else if (botName == "bot-4") {
+            return getOneAttackableField($element);
+        } else {
+            return getOneAttackableField($element);
+        }
     },
-    selectAnswer: function (questionDifficulty, botName) {
+    selectAnswer: function (botName,questionDifficulty) {
         //dort soll die passende Antwort ausgewählt werden.
+                //   console.log(Game.ki.getOneAttackableField());
+                 //  console.log(Game.ki.getAllFields());
         var rand = Game.static.random(100);
         var botActiv = 0;
-        if (botName == "Bot-1") {
+        if (botName == "bot-1") {
             botActiv = 24;
-        } else if (botName == "Bot-2") {
+        } else if (botName == "bot-2") {
             botActiv = 48;
-        } else if (botName == "Bot-3") {
+        } else if (botName == "bot-3") {
             botActiv = 60;
-        } else if (botName == "Bot-4") {
+        } else if (botName == "bot-4") {
             botActiv = 74;
         } else {
             botActiv = 98;
@@ -52,9 +63,12 @@ Game.ki = {
         } else if (this.questionDifficulty == 3) {
             botActiv = botActiv - 15;
         }
+        console.log("selectAnswer: Wahrscheinlichkeit: " + botActiv + " Fragen Schwierigkeit: " + questionDifficulty);
         if (Game.static.random() <= botActiv) {
+            console.log("bot hat es gewust");
             return 1; //Gibt 1 Zurück falls die Antwort richtig ist.
         } else {
+            console.log("BOT hat verloren");
             return 0;
         }
     },

@@ -37,28 +37,18 @@ Game.player = {
         Game.config.colors[color] = name;
 		
 		//Ausgeklammert zum Testen notwendig
-		/*
-				if(name=="bot-1"){
-					Game.ki.botDifficulty = "easy";
-					Game.ki.botEnabled = "true";
-					Game.ki.botProbActiv = Game.ki.botEasyProb;
+/*
+				if(name=="bot-1"||name=="bot-2"||name=="bot-3"||name=="bot-4"||name=="bot-5"){
+                    Game.ki.botEnabled = "true";
 				}
-				if(name=="bot-2)"){
-					Game.ki.botDifficulty = "moderate";
-					Game.ki.botEnabled = "true";
-					Game.ki.botProbActiv = Game.ki.botModProb;
-				}
-				if(name=="bot-3"){
-					Game.ki.botDifficulty = "hard";
-					Game.ki.botEnabled = "true";
-					Game.ki.botProbActiv = Game.ki.botHardProb;
-				}
+
 				if(Game.ki.botEnabled == "true"){
-						Game.ki.botColorId = color;
-						alert("KI Gegner " + Game.ki.botDifficulty + " wurde Hinzugefügt." + Game.player.getName(color) + " !! :)");
-						Game.ki.selectDifficulty(name);
-						Game.ki.botEnabled == "false"
+                    Game.ki.botEnabled == "false";
+
+                    console.log("KI Gegner " + Game.ki.botDifficulty + " wurde Hinzugefügt. " + Game.player.getName(color) + " !! :)");
+                    console.log("Difficulty wurde ausgewählt: " + Game.ki.selectDifficulty(name));
+                    console.log(Game.ki.selectAnswer(name,2));
 				}
-			*/
+*/
     }
 };
