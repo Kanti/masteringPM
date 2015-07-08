@@ -78,7 +78,7 @@ Game.question = {
         var vm = Game.question.createCard();
         vm.question = Game.question.getRandomQuestionObject(difficulty);
         vm.question.done(function (data) {
-            console.log("Question: ", data["Frage"], ": ", data["Richtige Antwort"]);
+            Game.static.log("Question: ", data["Frage"], ": ", data["Richtige Antwort"]);
             vm.question = data;
 
             vm.$p.text("Spieler " + Game.config.colors[activeColor]);
@@ -172,14 +172,14 @@ Game.question = {
                 realData[question["Schwierigkeit"]].push(question);
             });
 
-            console.log("fragen Anzahl: ", data.length, realData);
+            Game.static.log("fragen Anzahl: ", data.length, realData);
             deferredObject.resolve(realData);
         });
         Game.question.getQuestions["cache"] = deferredObject;
         return deferredObject;
     },
     getRandomQuestionObject: function (difficulty) {
-        console.log("difficulty:", difficulty);
+        Game.static.log("difficulty:", difficulty);
         var deferredObject = $.Deferred();
         if (Game.question.getRandomQuestionObject["cache"] && Game.question.getRandomQuestionObject["cache"][difficulty]) {
             if (Game.question.getRandomQuestionObject["cache"][difficulty].length > 0) {
@@ -193,7 +193,7 @@ Game.question = {
             $.each(data, function (i, val) {
                 Game.question.getRandomQuestionObject["cache"][i] = Game.static.shuffle($.extend(true, [], val));
             });
-            console.log("getRandomQuestionObject[cache]", Game.question.getRandomQuestionObject["cache"]);
+            Game.static.log("getRandomQuestionObject[cache]", Game.question.getRandomQuestionObject["cache"]);
             deferredObject.resolve(Game.question.getRandomQuestionObject["cache"][difficulty].pop());
         });
         return deferredObject;

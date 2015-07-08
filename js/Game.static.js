@@ -1,5 +1,10 @@
 var Game = Game || {};
 Game.static = {
+    log: function() {
+        if(Game.debug) {
+            console.log(arguments); //hier muss des noch reformatiert werden..
+        }
+    },
     shuffle: function (o) {
         for (var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
         return o;
@@ -11,7 +16,7 @@ Game.static = {
         do {
             colorID++;
             if (Game.config.colors['color-' + colorID]) {
-                console.log(colorID, Game.static.isColorInGameArea($element, 'color-' + colorID));
+                this.log(colorID, Game.static.isColorInGameArea($element, 'color-' + colorID));
             } else {
                 colorID = 1;
             }
@@ -103,7 +108,7 @@ Game.static = {
         '}');
     },
     setGameAreaContainerSize: function () {
-        console.log("resize setGameAreaContainerSize");
+        this.log("resize setGameAreaContainerSize");
         var win = $(window);
         var height = win.height();
         var width = win.width();
@@ -119,11 +124,11 @@ Game.static = {
             scrollTop: $(".game-area-container").offset().top
         }, 1);
     },
-		random: function (min,max) {
-			//Erzeugt Zufallszahlen von min bis Einschlieslich max, mit gleicher Wahrscheinlichkeit!
-			max = max || 100;
-			min = min || 1;
-	
-			return Math.floor(Math.random() * (max - min + 1)) + min;
-		}
+	random: function (min,max) {
+		//Erzeugt Zufallszahlen von min bis Einschlieslich max, mit gleicher Wahrscheinlichkeit!
+		max = max || 100;
+		min = min || 1;
+
+		return Math.floor(Math.random() * (max - min + 1)) + min;
+	}
 };
