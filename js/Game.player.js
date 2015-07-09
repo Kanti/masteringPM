@@ -18,10 +18,12 @@ Game.player = {
             var nameInput = "<input type='text' class=" + thiscolorid + " name=" + thiscolorid + " onchange='Game.player.setPlayerName(this.name, this.value)' value=" + thiscolor + ">";
             $playerinput.append(nameInput);
         }
-        $playerinput.append("<br><button onclick='Game.player.generatePlayerSize(" + num + ")'>Start</button>");
+        $playerinput.append("<br><button class='button' onclick='Game.player.generatePlayerSize(" + num + ")'>Start</button>");
     },
     generatePlayerSize: function (numberOfPlayers) {
         $("#welcome").hide();
+        $('#restart').text('Neustart');
+        $('#restart').bind('click', function() {Game.question.restart();});
         $('.game-area-container').show();
         Game.start = true;
         var arr = [];

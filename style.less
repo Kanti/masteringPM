@@ -33,6 +33,8 @@ body {
 @import "less/header";
 @import "less/modal";
 @import "less/playerinput";
+@import "less/buttons";
+@import "less/footer";
 
 .game-field.color-0 {
     background-image: url(img/wappen.png);
@@ -90,6 +92,11 @@ body {
         vertical-align: middle;
     }
 }
+.game-field.won{
+    text-align: center;
+    color: #eee;
+    text-shadow: 1px 1px 1px #222;
+}
 
 .attacked::before {
     content: '';
@@ -121,4 +128,11 @@ body {
     &::before {
         border-radius: @border-radius-active;
     }
+}
+.kugel {
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  position: absolute;
+  background: radial-gradient(circle at 100% 50%, #fff, #aaa);
 }

@@ -3,34 +3,9 @@ Game.main = function ($gameArea) {
     var vm = this;
     vm.$lastActiveElement = null;
 
-    vm.getNearbyElements = function ($element) {
-        var color = Game.static.getColor($element);
-        var result = [];
-        var test = [];
-        var $tmp;
-        if (Game.static.hasLeft($element)) {
-            test.push($element.prev());
-        }
-        if (Game.static.hasRight($element)) {
-            test.push($element.next());
-        }
-        if ($tmp = Game.static.getTop($element)) {
-            test.push($tmp);
-        }
-        if ($tmp = Game.static.getBottom($element)) {
-            test.push($tmp);
-        }
-
-        $.each(test, function (index) {
-            if (!test[index].hasClass(color)) {
-                result.push(test[index]);
-            }
-        });
-        return result;
-    };
     vm.newActive = function ($element) {
         //console.log("newActive", Game.static.currentColor($element), Game.static.getColor($element));
-        var arrayOfNearbyElements = vm.getNearbyElements($element);
+        var arrayOfNearbyElements = Game.static.getNearbyElements($element);
         //console.log(arrayOfNearbyElements);
         $.each(arrayOfNearbyElements, function (index, $element) {
             $element.addClass('attacked');
