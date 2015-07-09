@@ -7,9 +7,24 @@ Game.question = {
         var activeColor = Game.static.getColor($active);
         $attackedElement.removeClass(attackedColor).addClass(activeColor);
         if (Game.static.isWinner.test($attackedElement, activeColor)) {
-            $('#here').empty().text("Du hast Gewonnen " + Game.config.colors[activeColor] + " !! :)");
-            $('#welcome').show();
+            var gamefieldsize = $('#here a.game-field').width();
+            Game.question.restart();
+            var $welcome = $('#welcome');
+            $welcome.append("<div class='game-field "+activeColor+" won'></div>");
+            $welcome.append("<div id='center' class='game-field "+activeColor+" won'>SIEGER</div>");
+            $welcome.append("<div class='game-field "+activeColor+" won'></div>");
+            $(".won").css("width", gamefieldsize+"px");
+            $(".won").css("height", gamefieldsize+"px");
+            $(".won").css("font-size", (gamefieldsize/5)+"px");
+            Game.animation.winning();
+            Game.static.setGameAreaSize(0);
         }
+    },
+    restart: function() {
+        $('#here').empty();
+        $('#welcome').show();
+        $('#restart').unbind();
+        $('#restart').text('dhbw');
     },
     createDifficultyCard: function (activeColor, attackedColor) {
         var deferredObject = $.Deferred();
@@ -28,7 +43,7 @@ Game.question = {
         vm.$h3.text("Suche dir eine Schwierigkeit aus");
         vm.$answer1.text("1").off();
         vm.$answer2.text("2").off();
-        vm.$answer3.text("3").off();
+        vm.$answer3.text("3").off();//.hide(); //Deaktiviert, wegen der Achievments
         vm.$answer4.text("").off().hide();
 
         vm.$answers.on('click', function (event) {
@@ -78,7 +93,7 @@ Game.question = {
         var vm = Game.question.createCard();
         vm.question = Game.question.getRandomQuestionObject(difficulty);
         vm.question.done(function (data) {
-            console.log("Question: ", data["Frage"], ": ", data["Richtige Antwort"]);
+            Game.static.log("Question: ", data["Frage"], ": ", data["Richtige Antwort"]);
             vm.question = data;
 
             vm.$p.text("Spieler " + Game.config.colors[activeColor]);
@@ -129,6 +144,7 @@ Game.question = {
                         Game.question.removeCard();
                         //console.log("between removeCard and createQuestionCardForPlayer");
                         setTimeout(function () {
+                            //difficulty += Game.static.isWinner.achievment(color); an diese Stelle
                             Game.question.createQuestionCardForPlayer($attackedElement, attackedColor, 'NONE', deferredObject, difficulty);
                         }, 300);
                     } else {
@@ -153,7 +169,7 @@ Game.question = {
             return Game.question.getQuestions["cache"];
         }
         var deferredObject = $.Deferred();
-        $.getJSON("questions/questions.json", function (data) {
+        $.getJSON(Game.config.questionFolder, function (data) {
             data = data.questions;
             data = $.map(data, function (val, i) {
                 switch (val['Kategorie']) {
@@ -172,14 +188,14 @@ Game.question = {
                 realData[question["Schwierigkeit"]].push(question);
             });
 
-            console.log("fragen Anzahl: ", data.length, realData);
+            Game.static.log("fragen Anzahl: ", data.length, realData);
             deferredObject.resolve(realData);
         });
         Game.question.getQuestions["cache"] = deferredObject;
         return deferredObject;
     },
     getRandomQuestionObject: function (difficulty) {
-        console.log("difficulty:", difficulty);
+        Game.static.log("difficulty:", difficulty);
         var deferredObject = $.Deferred();
         if (Game.question.getRandomQuestionObject["cache"] && Game.question.getRandomQuestionObject["cache"][difficulty]) {
             if (Game.question.getRandomQuestionObject["cache"][difficulty].length > 0) {
@@ -193,7 +209,7 @@ Game.question = {
             $.each(data, function (i, val) {
                 Game.question.getRandomQuestionObject["cache"][i] = Game.static.shuffle($.extend(true, [], val));
             });
-            console.log("getRandomQuestionObject[cache]", Game.question.getRandomQuestionObject["cache"]);
+            Game.static.log("getRandomQuestionObject[cache]", Game.question.getRandomQuestionObject["cache"]);
             deferredObject.resolve(Game.question.getRandomQuestionObject["cache"][difficulty].pop());
         });
         return deferredObject;

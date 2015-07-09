@@ -8,5 +8,6 @@ Game.config = {
         'color-4': 'Grün',
         'color-5': 'Schwarz',
         'color-6': 'Weiß'
-    }
+    },
+    questionFolder: "questions/questions.json"
 };

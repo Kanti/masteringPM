@@ -3,7 +3,7 @@ Game.creator = {
     newGame: function (colors) {
         var userCount = colors.length;
         if (userCount < 2 || userCount > 6) {
-            console.log("ERROR");
+            Game.static.log("ERROR");
             userCount = 2;
             colors = ['color-1', 'color-2'];
         }
