@@ -6,8 +6,11 @@ Game.question = {
         var $active = Game.static.getActiveElement($attackedElement);
         var activeColor = Game.static.getColor($active);
         $attackedElement.removeClass(attackedColor).addClass(activeColor);
-        if (Game.static.isWinner.test($attackedElement, activeColor)) {
-            $('#here').empty().text("Du hast Gewonnen " + Game.config.colors[activeColor] + " !! :)");
+        if (Game.static.isWinner.test($attackedElement, activeColor) || Game.fastwin) {
+            $('#here').empty();
+            $('#here').append("<div class='game-field "+activeColor+" won'></div>");
+            $('#here').append("<div id='center' class='game-field "+activeColor+" won'>SIEGER</div>");
+            $('#here').append("<div class='game-field "+activeColor+" won'></div>");
             $('#welcome').show();
         }
     },
@@ -28,7 +31,7 @@ Game.question = {
         vm.$h3.text("Suche dir eine Schwierigkeit aus");
         vm.$answer1.text("1").off();
         vm.$answer2.text("2").off();
-        vm.$answer3.text("3").off();
+        vm.$answer3.text("3").off().hide(); //Deaktiviert, wegen der Achievments
         vm.$answer4.text("").off().hide();
 
         vm.$answers.on('click', function (event) {
@@ -129,6 +132,7 @@ Game.question = {
                         Game.question.removeCard();
                         //console.log("between removeCard and createQuestionCardForPlayer");
                         setTimeout(function () {
+                            //difficulty += Game.static.isWinner.achievment(color); an diese Stelle
                             Game.question.createQuestionCardForPlayer($attackedElement, attackedColor, 'NONE', deferredObject, difficulty);
                         }, 300);
                     } else {
@@ -153,7 +157,7 @@ Game.question = {
             return Game.question.getQuestions["cache"];
         }
         var deferredObject = $.Deferred();
-        $.getJSON("questions/questions.json", function (data) {
+        $.getJSON(Game.questionFolder, function (data) {
             data = data.questions;
             data = $.map(data, function (val, i) {
                 switch (val['Kategorie']) {
