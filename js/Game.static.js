@@ -154,6 +154,5 @@ Game.static = {
                 result.push(test[index]);
             }
         });
-        return result;
     }
 };
