@@ -33,6 +33,8 @@ body {
 @import "less/header";
 @import "less/modal";
 @import "less/playerinput";
+@import "less/buttons";
+@import "less/footer";
 
 .game-field.color-0 {
     background-image: url(img/wappen.png);
@@ -89,6 +91,10 @@ body {
         height: 100%;
         vertical-align: middle;
     }
+}
+.game-field.won{
+    text-align: center;
+    text-shadow: 1px 1px 1px #eee;
 }
 
 .attacked::before {
