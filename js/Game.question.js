@@ -10,9 +10,13 @@ Game.question = {
             var gamefieldsize = $('#here a.game-field').width();
             Game.question.restart();
             var $welcome = $('#welcome');
+            $welcome.append("<div class='game-field "+activeColor+" won'></div>");
             $welcome.append("<div id='center' class='game-field "+activeColor+" won'>SIEGER</div>");
-            $("#center").css("width", gamefieldsize+"px");
-            $("#center").css("height", gamefieldsize+"px");
+            $welcome.append("<div class='game-field "+activeColor+" won'></div>");
+            $(".won").css("width", gamefieldsize+"px");
+            $(".won").css("height", gamefieldsize+"px");
+            $(".won").css("font-size", (gamefieldsize/5)+"px");
+            Game.static.setGameAreaSize(0);
         }
     },
     restart: function() {

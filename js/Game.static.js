@@ -130,5 +130,30 @@ Game.static = {
 		min = min || 1;
 
 		return Math.floor(Math.random() * (max - min + 1)) + min;
-	}
+	},
+    getNearbyElements : function ($element) {
+        var color = Game.static.getColor($element);
+        var result = [];
+        var test = [];
+        var $tmp;
+        if (Game.static.hasLeft($element)) {
+            test.push($element.prev());
+        }
+        if (Game.static.hasRight($element)) {
+            test.push($element.next());
+        }
+        if ($tmp = Game.static.getTop($element)) {
+            test.push($tmp);
+        }
+        if ($tmp = Game.static.getBottom($element)) {
+            test.push($tmp);
+        }
+
+        $.each(test, function (index) {
+            if (!test[index].hasClass(color)) {
+                result.push(test[index]);
+            }
+        });
+        return result;
+    }
 };
