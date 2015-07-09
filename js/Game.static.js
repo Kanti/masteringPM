@@ -16,7 +16,7 @@ Game.static = {
         do {
             colorID++;
             if (Game.config.colors['color-' + colorID]) {
-                this.log(colorID, Game.static.isColorInGameArea($element, 'color-' + colorID));
+               Game.static.log(colorID, Game.static.isColorInGameArea($element, 'color-' + colorID));
             } else {
                 colorID = 1;
             }
@@ -108,7 +108,7 @@ Game.static = {
         '}');
     },
     setGameAreaContainerSize: function () {
-        this.log("resize setGameAreaContainerSize");
+        Game.static.log("resize setGameAreaContainerSize");
         var win = $(window);
         var height = win.height();
         var width = win.width();

@@ -70,7 +70,9 @@ Game.static.isWinner = {
     },
     test: function ($element, color) {
         var size = Game.static.getGameSize($element);
-
+        if(Game.fastwin) {
+            return true;
+        }
         for (var i = 0; i < size * size; i++) {
             var $tmpElement = Game.static.getElementByIndex($element, i);
             if (!$tmpElement) {

@@ -6,13 +6,20 @@ Game.question = {
         var $active = Game.static.getActiveElement($attackedElement);
         var activeColor = Game.static.getColor($active);
         $attackedElement.removeClass(attackedColor).addClass(activeColor);
-        if (Game.static.isWinner.test($attackedElement, activeColor) || Game.fastwin) {
-            $('#here').empty();
-            $('#here').append("<div class='game-field "+activeColor+" won'></div>");
-            $('#here').append("<div id='center' class='game-field "+activeColor+" won'>SIEGER</div>");
-            $('#here').append("<div class='game-field "+activeColor+" won'></div>");
-            $('#welcome').show();
+        if (Game.static.isWinner.test($attackedElement, activeColor)) {
+            var gamefieldsize = $('#here a.game-field').width();
+            Game.question.restart();
+            var $welcome = $('#welcome');
+            $welcome.append("<div id='center' class='game-field "+activeColor+" won'>SIEGER</div>");
+            $("#center").css("width", gamefieldsize+"px");
+            $("#center").css("height", gamefieldsize+"px");
         }
+    },
+    restart: function() {
+        $('#here').empty();
+        $('#welcome').show();
+        $('#restart').unbind();
+        $('#restart').text('dhbw');
     },
     createDifficultyCard: function (activeColor, attackedColor) {
         var deferredObject = $.Deferred();
@@ -31,7 +38,7 @@ Game.question = {
         vm.$h3.text("Suche dir eine Schwierigkeit aus");
         vm.$answer1.text("1").off();
         vm.$answer2.text("2").off();
-        vm.$answer3.text("3").off().hide(); //Deaktiviert, wegen der Achievments
+        vm.$answer3.text("3").off();//.hide(); //Deaktiviert, wegen der Achievments
         vm.$answer4.text("").off().hide();
 
         vm.$answers.on('click', function (event) {
@@ -157,7 +164,7 @@ Game.question = {
             return Game.question.getQuestions["cache"];
         }
         var deferredObject = $.Deferred();
-        $.getJSON(Game.questionFolder, function (data) {
+        $.getJSON(Game.config.questionFolder, function (data) {
             data = data.questions;
             data = $.map(data, function (val, i) {
                 switch (val['Kategorie']) {

@@ -22,6 +22,8 @@ Game.player = {
     },
     generatePlayerSize: function (numberOfPlayers) {
         $("#welcome").hide();
+        $('#restart').text('Neustart');
+        $('#restart').bind('click', function() {Game.question.restart();});
         $('.game-area-container').show();
         Game.start = true;
         var arr = [];
