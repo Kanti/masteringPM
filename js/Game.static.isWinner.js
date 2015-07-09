@@ -45,12 +45,13 @@ Game.static.isWinner = {
         var color = Game.static.getColor($element);
         var $testElement = Game.static.getElementByIndex($element, index + 1);//rechts
         if (!$testElement || Game.static.getColor($testElement) != color) {
-            return 0;
+            return false;
         }
         $testElement = Game.static.getElementByIndex($element, index - 1);//links
         if (!$testElement || Game.static.getColor($testElement) != color) {
-            return 0;
+            return false;
         }
+        return true;
     },
     hasThreeInARowHorizontal: function ($element) {
         //console.log("test has9FieldsAround ", $element.get(0));
@@ -59,13 +60,13 @@ Game.static.isWinner = {
         var color = Game.static.getColor($element);
         var $testElement = Game.static.getElementByIndex($element, index + size);//unten
         if (!$testElement || Game.static.getColor($testElement) != color) {
-            return 0;
+            return false;
         }
         $testElement = Game.static.getElementByIndex($element, index - size);//oben
         if (!$testElement || Game.static.getColor($testElement) != color) {
-            return 0;
+            return false;
         }
-        return 1;
+        return true;
     },
     test: function ($element, color) {
         var size = Game.static.getGameSize($element);
@@ -86,5 +87,29 @@ Game.static.isWinner = {
             }
         }
         return false;
+    },
+    achievment: function ($element, color) {
+        // nochmal ein Redesign des Systems vornehmen!
+        var size = Game.static.getGameSize($element);
+
+        for (var i = 0; i < size * size; i++) {
+            var $tmpElement = Game.static.getElementByIndex($element, i);
+            if (!$tmpElement) {
+                continue;
+            }
+            if (Game.static.isEdgeElement($tmpElement)) {
+                continue;
+            }
+            if (Game.static.getColor($tmpElement) != color) {
+                continue;
+            }
+            if (Game.static.isWinner.hasThreeInARowHorizontal($tmpElement)) {
+                return 1;
+            }
+            if (Game.static.isWinner.hasThreeInARowVertical($tmpElement)) {
+                return 1;
+            }
+        }
+        return 0;
     }
 };
