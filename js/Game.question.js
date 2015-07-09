@@ -16,6 +16,7 @@ Game.question = {
             $(".won").css("width", gamefieldsize+"px");
             $(".won").css("height", gamefieldsize+"px");
             $(".won").css("font-size", (gamefieldsize/5)+"px");
+            Game.animation.winning();
             Game.static.setGameAreaSize(0);
         }
     },
