@@ -84,10 +84,12 @@ Game.animation = {
 	    return hex;
 	},
 	changeColorOfElement: function ($element, duration) {
-		if(duration==0) {
-			return true;
+		var timer = setInterval(function(){
+		 $element.css("background-color", Game.animation.randColr());
+		 duration--;
+		}, 500);
+		if(duration == 0) {
+			clearInterval(timer);
 		}
-		$element.css("background-color", Game.animation.randColr()).delay(400);
-		setTimeout(Game.animation.changeColorOfElement($element, duration-1), 1);
 	}
 };
