@@ -10,21 +10,21 @@ Game.question = {
             var gamefieldsize = $('#here a.game-field').width();
             Game.question.restart();
             var $welcome = $('#welcome');
-            $welcome.append("<div class='game-field "+activeColor+" won'></div>");
-            $welcome.append("<div id='center' class='game-field "+activeColor+" won'>SIEGER</div>");
-            $welcome.append("<div class='game-field "+activeColor+" won'></div>");
-            $(".won").css("width", gamefieldsize+"px");
-            $(".won").css("height", gamefieldsize+"px");
-            $(".won").css("font-size", (gamefieldsize/5)+"px");
+            $welcome.append("<div class='game-field " + activeColor + " won'></div>");
+            $welcome.append("<div id='center' class='game-field " + activeColor + " won'>SIEGER</div>");
+            $welcome.append("<div class='game-field " + activeColor + " won'></div>");
+            $(".won").css("width", gamefieldsize + "px");
+            $(".won").css("height", gamefieldsize + "px");
+            $(".won").css("font-size", (gamefieldsize / 5) + "px");
             Game.animation.winning();
             Game.static.setGameAreaSize(0);
         }
     },
-    restart: function() {
+    restart: function () {
         $('#here').empty();
         $('#welcome').show();
-        $('#restart').unbind();
-        $('#restart').text('dhbw');
+        $('#restart').unbind()
+            .text('dhbw');
     },
     createDifficultyCard: function (activeColor, attackedColor) {
         var deferredObject = $.Deferred();
@@ -46,14 +46,22 @@ Game.question = {
         vm.$answer3.text("3").off();//.hide(); //Deaktiviert, wegen der Achievments
         vm.$answer4.text("").off().hide();
 
-        vm.$answers.on('click', function (event) {
-            event.preventDefault();
-            Game.question.removeCard();
-            var difficulty = parseInt($(this).index()) + 1;
+        if (Game.static.isBot(Game.config.colors[activeColor])) {
+            console.log("bot ausgewählt... bitte warten");
             setTimeout(function () {
-                deferredObject.resolve(difficulty);
-            }, 300);
-        });
+                deferredObject.resolve(Game.ki.selectDifficulty(Game.config.colors[activeColor]));
+            }, Game.static.random(900, 1100));
+        } else {
+
+            vm.$answers.on('click', function (event) {
+                event.preventDefault();
+                Game.question.removeCard();
+                var difficulty = parseInt($(this).index()) + 1;
+                setTimeout(function () {
+                    deferredObject.resolve(difficulty);
+                }, 300);
+            });
+        }
 
         return deferredObject;
     },
@@ -96,13 +104,13 @@ Game.question = {
             Game.static.log("Question: ", data["Frage"], ": ", data["Richtige Antwort"]);
             vm.question = data;
 
-            vm.$p.text("Spieler " + Game.config.colors[activeColor]);
+            vm.$p.text("Spieler " + Game.config.colors[activeColor] + " - Karten Schwierigkeit " + difficulty);
             vm.$p.removeClass().addClass(activeColor);
             vm.$modal.removeClass().addClass("show");
             vm.$body.addClass("overlay");
             vm.$h3.text(vm.question["Frage"]);
             var count = 4;
-            while(vm.question["Antwort A"] == "" && count != 0){
+            while (vm.question["Antwort A"] == "" && count != 0) {
                 vm.question["Antwort A"] = vm.question["Antwort B"];
                 vm.question["Antwort B"] = vm.question["Antwort C"];
                 vm.question["Antwort C"] = vm.question["Antwort D"];
@@ -127,32 +135,61 @@ Game.question = {
                 vm.$answer4.hide();
             }
 
-            vm.$answers.on('click', function (event) {
-                //console.log("click Event", event);
-                event.preventDefault();
-                if (attackedColor == 'NONE') {
-                    if ($(this).text().trim() == vm.question["Richtige Antwort"].trim()) {
-                        Game.question.removeCard();
-                        deferredObject.resolve({conquer: false});
+            if (Game.static.isBot(Game.config.colors[activeColor])) {
+                console.log(vm.question);
+                setTimeout(function () {
+                    if (attackedColor == 'NONE') {
+                        if (Game.ki.selectAnswer(Game.config.colors[activeColor], difficulty)) {
+                            Game.question.removeCard();
+                            deferredObject.resolve({conquer: false});
+                        } else {
+                            Game.question.conquer($attackedElement);
+                            Game.question.removeCard();
+                            deferredObject.resolve({conquer: true});
+                        }
                     } else {
-                        Game.question.conquer($attackedElement);
-                        Game.question.removeCard();
-                        deferredObject.resolve({conquer: true});
+                        if (Game.ki.selectAnswer(Game.config.colors[activeColor], difficulty)) {
+                            Game.question.removeCard();
+                            setTimeout(function () {
+                                //difficulty += Game.static.isWinner.achievment(color); an diese Stelle
+                                Game.question.createQuestionCardForPlayer($attackedElement, attackedColor, 'NONE', deferredObject, difficulty);
+                            }, 300);
+                        } else {
+                            Game.question.removeCard();
+                            deferredObject.resolve({conquer: false});
+                        }
                     }
-                } else {
-                    if ($(this).text().trim() == vm.question["Richtige Antwort"].trim()) {
-                        Game.question.removeCard();
-                        //console.log("between removeCard and createQuestionCardForPlayer");
-                        setTimeout(function () {
-                            //difficulty += Game.static.isWinner.achievment(color); an diese Stelle
-                            Game.question.createQuestionCardForPlayer($attackedElement, attackedColor, 'NONE', deferredObject, difficulty);
-                        }, 300);
+
+                }, Game.static.random(900, 1100));
+
+            } else {
+                vm.$answers.on('click', function (event) {
+                    //console.log("click Event", event);
+                    event.preventDefault();
+                    if (attackedColor == 'NONE') {
+                        if ($(this).text().trim() == vm.question["Richtige Antwort"].trim()) {
+                            Game.question.removeCard();
+                            deferredObject.resolve({conquer: false});
+                        } else {
+                            Game.question.conquer($attackedElement);
+                            Game.question.removeCard();
+                            deferredObject.resolve({conquer: true});
+                        }
                     } else {
-                        Game.question.removeCard();
-                        deferredObject.resolve({conquer: false});
+                        if ($(this).text().trim() == vm.question["Richtige Antwort"].trim()) {
+                            Game.question.removeCard();
+                            //console.log("between removeCard and createQuestionCardForPlayer");
+                            setTimeout(function () {
+                                //difficulty += Game.static.isWinner.achievment(color); an diese Stelle
+                                Game.question.createQuestionCardForPlayer($attackedElement, attackedColor, 'NONE', deferredObject, difficulty);
+                            }, 300);
+                        } else {
+                            Game.question.removeCard();
+                            deferredObject.resolve({conquer: false});
+                        }
                     }
-                }
-            });
+                });
+            }
         });
     },
     removeCard: function () {

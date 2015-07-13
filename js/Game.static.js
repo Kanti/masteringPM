@@ -1,7 +1,7 @@
 var Game = Game || {};
 Game.static = {
-    log: function() {
-        if(Game.debug) {
+    log: function () {
+        if (Game.debug) {
             console.log(arguments); //hier muss des noch reformatiert werden..
         }
     },
@@ -16,13 +16,16 @@ Game.static = {
         do {
             colorID++;
             if (Game.config.colors['color-' + colorID]) {
-               Game.static.log(colorID, Game.static.isColorInGameArea($element, 'color-' + colorID));
+                Game.static.log(colorID, Game.static.isColorInGameArea($element, 'color-' + colorID));
             } else {
                 colorID = 1;
             }
         } while (!Game.static.isColorInGameArea($element, 'color-' + colorID));
         $currentColor.removeClass('color-' + oldColorID);
         $currentColor.addClass('color-' + colorID);
+        if (Game.static.isBot(Game.config.colors['color-' + colorID])) {
+            Game.gameObject.clickEvent(Game.static.getElementFromColor($element, 'color-' + colorID));
+        }
     },
     currentColorElement: function ($element) {
         return $element.parent();
@@ -32,6 +35,9 @@ Game.static = {
     },
     isColorInGameArea: function ($element, color) {
         return $element.parent().find('.' + color).length >= 1;
+    },
+    getElementFromColor: function ($element, color) {
+        return $($element.parent().find('.' + color).get(0));
     },
     haveATurn: function ($element) {
         return Game.static.currentColor($element) == Game.static.getColor($element);
@@ -124,14 +130,14 @@ Game.static = {
             scrollTop: $(".game-area-container").offset().top
         }, 1);
     },
-	random: function (min,max) {
-		//Erzeugt Zufallszahlen von min bis Einschlieslich max, mit gleicher Wahrscheinlichkeit!
-		max = max || 100;
-		min = min || 1;
+    random: function (min, max) {
+        //Erzeugt Zufallszahlen von min bis Einschlieslich max, mit gleicher Wahrscheinlichkeit!
+        max = max || 100;
+        min = min || 1;
 
-		return Math.floor(Math.random() * (max - min + 1)) + min;
-	},
-    getNearbyElements : function ($element) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    },
+    getNearbyElements: function ($element, onlyThisColor) {
         var color = Game.static.getColor($element);
         var result = [];
         var test = [];
@@ -150,10 +156,16 @@ Game.static = {
         }
 
         $.each(test, function (index) {
-            if (!test[index].hasClass(color)) {
+            if (!onlyThisColor && !test[index].hasClass(color)) {
+                result.push(test[index]);
+            }
+            if (onlyThisColor && test[index].hasClass(onlyThisColor)) {
                 result.push(test[index]);
             }
         });
         return result;
+    },
+    isBot: function (name) {
+        return name.match(/bot-[0-9]/) != null;
     }
 };

@@ -22,8 +22,9 @@ Game.player = {
     },
     generatePlayerSize: function (numberOfPlayers) {
         $("#welcome").hide();
-        $('#restart').text('Neustart');
-        $('#restart').bind('click', function() {Game.question.restart();});
+        $('#restart').text('Neustart').on('click', function () {
+            Game.question.restart();
+        });
         $('.game-area-container').show();
         Game.start = true;
         var arr = [];
@@ -37,20 +38,20 @@ Game.player = {
     },
     setPlayerName: function (color, name) {
         Game.config.colors[color] = name;
-		
-		//Ausgeklammert zum Testen notwendig
-/*
-				if(name=="bot-1"||name=="bot-2"||name=="bot-3"||name=="bot-4"||name=="bot-5"){
-                    Game.ki.botEnabled = "true";
-				}
 
-				if(Game.ki.botEnabled == "true"){
-                    Game.ki.botEnabled == "false";
+        //Ausgeklammert zum Testen notwendig
+        /*
+         if(name=="bot-1"||name=="bot-2"||name=="bot-3"||name=="bot-4"||name=="bot-5"){
+         Game.ki.botEnabled = "true";
+         }
 
-                    console.log("KI Gegner " + Game.ki.botDifficulty + " wurde Hinzugefügt. " + Game.player.getName(color) + " !! :)");
-                    console.log("Difficulty wurde ausgewählt: " + Game.ki.selectDifficulty(name));
-                    console.log(Game.ki.selectAnswer(name,2));
-				}
-*/
+         if(Game.ki.botEnabled == "true"){
+         Game.ki.botEnabled == "false";
+
+         console.log("KI Gegner " + Game.ki.botDifficulty + " wurde Hinzugefügt. " + Game.player.getName(color) + " !! :)");
+         console.log("Difficulty wurde ausgewählt: " + Game.ki.selectDifficulty(name));
+         console.log(Game.ki.selectAnswer(name,2));
+         }
+         */
     }
 };

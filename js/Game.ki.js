@@ -24,14 +24,11 @@ Game.ki = {
         }
         return difficulty;
     },
-    selectField: function ($element,botName) {
+    selectField: function ($element, botName) {
         // dort soll das nächste Feld ausgewählt werden, das angegriffen wird.
 
-
         if (botName == "bot-1") {
-            console.log("getAllFields " + Game.ki.getAllFields($element));
             return Game.ki.getOneAttackableField(Game.ki.getAllFields($element));
-
         } else if (botName == "bot-2") {
             return Game.ki.getOneAttackableField(Game.ki.getAllFields($element));
         } else if (botName == "bot-3") {
@@ -42,7 +39,7 @@ Game.ki = {
             return Game.ki.getOneAttackableField(Game.ki.getAllFields($element));
         }
     },
-    selectAnswer: function (botName,questionDifficulty) {
+    selectAnswer: function (botName, questionDifficulty) {
         //dort soll die passende Antwort ausgewählt werden.
         var rand = Game.static.random(100);
         var botActiv = 0;
@@ -65,7 +62,7 @@ Game.ki = {
             botActiv = botActiv - 15;
         }
         console.log("selectAnswer: Wahrscheinlichkeit: " + botActiv + " Fragen Schwierigkeit: " + questionDifficulty);
-        if (Game.static.random() <= botActiv) {
+        if (Game.static.random(0, 100) <= botActiv) {
             console.log("bot hat es gewust");
             return 1; //Gibt 1 Zurück falls die Antwort richtig ist.
         } else {
@@ -78,18 +75,22 @@ Game.ki = {
         var size = Game.static.getGameSize($element);
         var Fields = [];
 
-        for (var i = 0; i <= 2 * Game.static.getGameSize($element) - 1; i++) {
-            if (color = Game.static.getColor(Game.static.getElementByIndex($element, i))) {
-                Fields.push(Game.static.getElementByIndex($element, i))
+        for (var i = 0; i <= size * size - 1; i++) {
+            var $tmpElement = Game.static.getElementByIndex($element, i);
+            if (color == Game.static.getColor($tmpElement)) {
+                Fields.push($tmpElement);
             }
         }
 
         return Fields;
     },
     getOneAttackableField: function ($array) {
-        var nearbyElements = Game.static.getNearbyElements($array[Game.static.random(0, $array.length - 1)]); //////is not a Function!!!!!
+        $array = Game.static.shuffle($array);
+        var $randomElement = $array.pop();
+        var nearbyElements = Game.static.getNearbyElements($randomElement); //////is not a Function!!!!!
         if (nearbyElements.length != 0) {
-            return nearbyElements[Game.static.random(0, nearbyElements.length - 1)];
+            nearbyElements = Game.static.shuffle(nearbyElements);
+            return [$randomElement, nearbyElements.pop()];
         }
 
         else return Game.ki.getOneAttackableField($array);
